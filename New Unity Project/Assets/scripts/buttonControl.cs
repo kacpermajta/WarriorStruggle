@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 public class buttonControl : MonoBehaviour {
 
 	// Use this for initialization
+	public void Tutorial () {
+		SceneManager.LoadScene("tutorial");
+
+	}
 	public void StartGame () {
 		SceneManager.LoadScene("levels");
 
