@@ -8,6 +8,7 @@ public class playerSettings : MonoBehaviour {
 	
 	public static GameObject playerHero;
 	public GameObject defaultHero;
+	public static int difficulty;
 
 	void Awake() {
 
@@ -18,6 +19,7 @@ public class playerSettings : MonoBehaviour {
 
 		//choose defauld class
 		playerHero = defaultHero;
+		difficulty = 4;
 
 		SceneManager.LoadScene("menu");
 

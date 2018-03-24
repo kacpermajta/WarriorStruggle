@@ -3,24 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class meleeStrike : MonoBehaviour {
-	public int damage;
+	public float damage;
 	public GameObject owner;
 	public GameObject victim;
 	public float range;
+	public bool offhand;
 
 	// Use this for initialization
 	void Start () {
-		damage = 10;
+//		damage = 10;
 	}
 
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+
+
 	void OnTriggerStay(Collider other) 
 	{
 		
-		if(owner.GetComponent< character_behavior > ().charStrike)
+		if((!offhand && owner.GetComponent< character_behavior > ().charStrike)||(offhand &&owner.GetComponent< character_behavior > ().charSkill))
 		{	
 			if( other.transform.gameObject != owner &&other.tag != "nonexist")
 			{	//weapon hit

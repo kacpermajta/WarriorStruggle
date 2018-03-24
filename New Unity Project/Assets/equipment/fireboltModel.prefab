@@ -108,4 +108,4 @@ MonoBehaviour:
   airborne: 0
   physical: 0
   velocity: 0.1
-  damage: 0
+  damage: 1

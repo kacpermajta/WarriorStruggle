@@ -41,3 +41,5 @@ EditorBuildSettings:
     path: Assets/scenes/sceneEight.unity
   - enabled: 1
     path: Assets/scenes/tutorial.unity
+  - enabled: 1
+    path: Assets/scenes/cheatmap.unity

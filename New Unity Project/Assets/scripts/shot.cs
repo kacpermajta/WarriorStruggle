@@ -45,7 +45,8 @@ public class shot : MonoBehaviour {
 				gameObject.tag = "nonexist";
 				if (other.tag == "weapon") 
 				{
-					Rigidbody newRigidbody = gameObject.AddComponent<Rigidbody> ();
+					//Rigidbody newRigidbody = 
+						gameObject.AddComponent<Rigidbody> ();
 				} else 
 				{
 					gameObject.transform.parent = other.transform;

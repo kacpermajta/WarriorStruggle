@@ -54,10 +54,10 @@ public class botControl : MonoBehaviour {
 							temporary = agent.GetComponent< Transform > ().localPosition;
 							if (child.GetComponent< character_behavior > ().mapPlane == temporary.z) {
 								if (agent.GetComponent< passageHandler > ().entrance) {
-									if (child.GetComponent< character_behavior > ().location.x+0.5f  > temporary.x) {
+									if (child.GetComponent< character_behavior > ().location.x  > temporary.x+0.6f) {
 										child.GetComponent< character_behavior > ().charLeft = true;
 										child.GetComponent< character_behavior > ().charRight = false;
-									} else if (child.GetComponent< character_behavior > ().location.x  < temporary.x-1.73f) {
+									} else if (child.GetComponent< character_behavior > ().location.x  < temporary.x-0.6f) {
 										child.GetComponent< character_behavior > ().charRight = true;
 										child.GetComponent< character_behavior > ().charLeft = false;
 									} else {

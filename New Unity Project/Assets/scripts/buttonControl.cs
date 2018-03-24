@@ -55,6 +55,10 @@ public class buttonControl : MonoBehaviour {
 		SceneManager.LoadScene("sceneSix");
 
 	}
+	public void cheatmap() {
+		SceneManager.LoadScene("cheatmap");
+
+	}
 	public void levelSeven() {
 		SceneManager.LoadScene("sceneSeven");
 

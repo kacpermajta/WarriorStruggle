@@ -301,27 +301,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 1
-  isHostile: 0
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  exhaust: 17
+  speed: 0
+  damage: 1
+  secDamage: 4
+  weapon: 3
+  arrow: {fileID: 1565612498717370, guid: e7fe79fbccc963c429515ba6f2c1a3cf, type: 2}
+  bowModel: {fileID: 1266524553568714, guid: f07509b0e4d583544838343f7c1648d9, type: 2}
+  shieldModel: {fileID: 0}
+  health: 15
+  isHostile: 0
   charController: {fileID: 0}
   leap: 0
   stamina: 0
   mana: 0
   slash: 0
   thrust: 0
-  exhaust: 0
+  offslash: 0
   mapPlane: 0
-  weapon: 3
   offEquipment: 1
   location: {x: 0, y: 0, z: 0}
   guard: {x: 0, y: 0, z: 0}
   leftGuard: {x: 0, y: 0, z: 0}
   lokacja: {x: 0, y: 0, z: 0}
-  arrow: {fileID: 1565612498717370, guid: e7fe79fbccc963c429515ba6f2c1a3cf, type: 2}
-  bowModel: {fileID: 1266524553568714, guid: f07509b0e4d583544838343f7c1648d9, type: 2}
-  shieldModel: {fileID: 0}
   weaponModel: {fileID: 0}
   offhandModel: {fileID: 0}
   aim: {x: 0, y: 0, z: 0}
@@ -331,7 +336,6 @@ MonoBehaviour:
   charStrike: 0
   charSkill: 0
   charInteract: 0
-  health: 0
   aimError: {x: 0, y: 0, z: 0}
 --- !u!124 &124009864428325110
 Behaviour:

@@ -3,23 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class character_behavior : MonoBehaviour {
-	public bool isPlayer, isHostile, isGood, isInvader, isGuardian;
+	public enum equipment {none, spell, bow, axe,sword, xbow, spear, shield, dagger, sideWeapon};
+
+
+	public bool isPlayer,  isGood, isInvader, isGuardian;
+	public float exhaust, speed, damage, secDamage;
+	public equipment weapon;
+	public GameObject arrow;
+	public GameObject bowModel,shieldModel;
+	public  float health;
+
+
+	public bool isHostile;
+
+
 	public CharacterController charController;
 	float x, y, z, jump, orientation;
 	public int leap;
-	public float stamina, mana, slash, thrust, exhaust;
-	public float mapPlane;
-	public enum equipment {none, spell, bow, axe,sword, xbow, spear, shield, dagger};
-	public equipment weapon;
+	public float stamina, mana, slash, thrust,offslash;
+	public float  mapPlane;
 	public equipment offEquipment;
 	Vector3 calcMov;
 	public Vector3 location,guard, leftGuard,lokacja;
-	public GameObject arrow;
-	public GameObject bowModel,shieldModel;
 	public GameObject weaponModel, offhandModel;
 	public Vector3 aim;
 	public  bool charUp, charLeft, charRight, charStrike, charSkill, charInteract;
-	public  float health;
 	public Vector3 aimError;
 	// Use this for initialization
 	void Start () {
@@ -30,19 +38,56 @@ public class character_behavior : MonoBehaviour {
 //eq initialisation
 		weaponModel= GameObject.Instantiate(bowModel, location, Quaternion.identity);
 		weaponModel.transform.parent = gameObject.transform;
+
+
+
 		if (weapon == equipment.axe||weapon == equipment.sword||weapon == equipment.spear) {
 			weaponModel.GetComponent< meleeStrike> ().owner = gameObject;
 		}
+
+
 		if (shieldModel != null) {
 			offhandModel = GameObject.Instantiate (shieldModel, location, Quaternion.identity);
 			offhandModel.transform.parent = gameObject.transform;
+			if(offEquipment==equipment.sideWeapon)
+			{
+				offhandModel.GetComponent< meleeStrike> ().owner = gameObject;
+			}
 		}
 
-		health = 15f;
+
+		if (health == 0f) 
+		{
+			health = 15f;
+		}
 		aimError = new Vector3(0f,0f, 0f);
 		slash = 0f;
+		offslash = 0f;
+		speed = 0.015f;
+		charLeft = false;
+		charRight = false;
+		charUp = false;
+		charStrike = false;
+		if (weaponModel.GetComponent< meleeStrike > () != null) 
+		{
+			weaponModel.GetComponent< meleeStrike > ().damage += damage;
+		}
+		if(isPlayer==false)
+		{
 
-
+			if (weapon == equipment.sword && playerSettings.difficulty < 4) 
+			{
+				speed += (playerSettings.difficulty - 4) * 0.002f;
+			} else 
+			{
+				speed += (playerSettings.difficulty - 4) * 0.001f;
+			}
+			if (weaponModel.GetComponent< meleeStrike > () != null) 
+			{
+			weaponModel.GetComponent< meleeStrike > ().damage*=playerSettings.difficulty/4;
+			}
+			health+= 2*(playerSettings.difficulty - 4);
+		}
 	}
 
 	void Update () {
@@ -75,12 +120,12 @@ public class character_behavior : MonoBehaviour {
 			} 
 
 		if (charRight) {
-				x += 0.015f;
+			x += speed;
 				jump += 0.03f;
 
 			}
 		if (charLeft){
-				x += -0.015f;
+			x += -speed;
 				jump += 0.03f;
 			}
 			if (leap < 0) {
@@ -134,7 +179,7 @@ public class character_behavior : MonoBehaviour {
 
 
 //eq thrown
-		if (offhandModel != null && offEquipment==equipment.dagger )
+		if (arrow != null && offEquipment==equipment.dagger )
 		{
 			leftGuard = guard;
 			leftGuard.y -= 0.3f;
@@ -156,7 +201,7 @@ public class character_behavior : MonoBehaviour {
 						missile.transform.Rotate (0f, 0f, orientation * 360f / 6.28f);
 
 					}
-					missile.GetComponent< shot > ().damage += 5f;
+					missile.GetComponent< shot > ().damage += secDamage;
 					missile.GetComponent< shot > ().velocity += 0.2f;
 					missile.GetComponent< shot > ().airborne = true;
 
@@ -165,32 +210,30 @@ public class character_behavior : MonoBehaviour {
 
 				}
 			}
-			if(stamina>-20f)
+			if (offhandModel != null) 
 			{
-				if (aim.x - location.x < 0) 
+				if (stamina > -20f) 
 				{
-					offhandModel.transform.eulerAngles = (new Vector3 (0f, 180f, 40f));
-				} else 
-				{
-					offhandModel.transform.eulerAngles = (new Vector3 (0f, 0f, 40f));
-				}
+					if (aim.x - location.x < 0) {
+						offhandModel.transform.eulerAngles = (new Vector3 (0f, 180f, 40f));
+					} else {
+						offhandModel.transform.eulerAngles = (new Vector3 (0f, 0f, 40f));
+					}
 
 
-			} else 
-			{//no stamina
+				} else {//no stamina
 				
-				if (aim.x - location.x < 0) {
-					leftGuard += (new Vector3 (0.5f, -0.5f, 40f));
-				} else
-				{
+					if (aim.x - location.x < 0) {
+						leftGuard += (new Vector3 (0.5f, -0.5f, 40f));
+					} else {
 
-					leftGuard += (new Vector3 (-0.5f, -0.5f, 40f));
+						leftGuard += (new Vector3 (-0.5f, -0.5f, 40f));
+					}
+					offhandModel.transform.eulerAngles = (new Vector3 (0f, 90f, 90f));
+
 				}
-				offhandModel.transform.eulerAngles = (new Vector3 (0f, 90f, 90f));
-
+				offhandModel.transform.position = leftGuard;
 			}
-			offhandModel.transform.position = leftGuard;
-
 
 
 		}
@@ -213,7 +256,7 @@ public class character_behavior : MonoBehaviour {
 						missile.transform.Rotate (0f, 0f, (orientation +Random.value-0.5f)* 360f / 6.28f);
 
 					}
-					missile.GetComponent< shot > ().damage += 5f;
+					missile.GetComponent< shot > ().damage += secDamage;
 					missile.GetComponent< shot > ().velocity += 0.2f;
 					missile.GetComponent< shot > ().airborne = true;
 
@@ -228,6 +271,58 @@ public class character_behavior : MonoBehaviour {
 			} 
 
 
+		//eq offhand blade
+		if (offEquipment == equipment.sideWeapon) 
+		{
+			leftGuard = guard;
+			leftGuard.y += 0.4f;
+			offhandModel.transform.position = guard;
+
+			aimError.y += 0.1f*(Random.value-0.5f-aimError.y);
+
+
+			if (mana > 0f && charSkill ) 
+			{
+				offslash -= (mana) / 40f;
+				mana -= 2.5f;
+				if (mana < 3f & offslash > 0f) 
+				{
+					offslash = 0.3f;
+
+				}
+			} else {
+
+				offslash = 0.3f;
+			}
+
+
+			if (mana < -3f) 
+			{
+				offslash += 3f;
+
+			}
+
+			if (aim.x - location.x < 0) 
+			{
+
+				offhandModel.transform.eulerAngles = (new Vector3 (0f, 0f, (orientation+offslash) * 360f / 6.28f));
+				offhandModel.transform.Rotate(new Vector3 (0f, 180f, 0f));
+
+			} else
+
+			{
+
+				offhandModel.transform.eulerAngles = (new Vector3 (0f, 0f, (orientation-offslash) * 360f / 6.28f));
+			}
+			if (Mathf.Abs (aim.x - location.x) < 0.5f) {
+				offhandModel.transform.Rotate (new Vector3 (0f, 0f, 180f));
+
+			}
+
+
+
+
+		}
 
 
 
@@ -355,7 +450,7 @@ public class character_behavior : MonoBehaviour {
 						missile.transform.Rotate(0f,0f,orientation*360f/6.28f);
 
 					}
-					missile.GetComponent< shot > ().damage+=5f;
+					missile.GetComponent< shot > ().damage+=damage;
 					missile.GetComponent< shot > ().velocity+=0.3f;
 					missile.GetComponent< shot > ().airborne = true;
 
@@ -408,7 +503,7 @@ public class character_behavior : MonoBehaviour {
 				GameObject missile = GameObject.Instantiate(arrow, guard-new Vector3(0f,0.7f,0f), Quaternion.identity);
 				offhandModel = missile;
 				offhandModel.GetComponent< shot > ().airborne = false;
-				missile.GetComponent< shot > ().damage=2f;
+				missile.GetComponent< shot > ().damage+=damage;
 				missile.GetComponent< shot > ().velocity=0.15f;
 				missile.transform.parent = gameObject.GetComponent< character_behavior > ().weaponModel.transform;
 
@@ -491,12 +586,22 @@ public class character_behavior : MonoBehaviour {
 			ballCollider.radius = 0.25f;
 			gameObject.transform.parent = gameObject.transform.parent.transform.parent;
 
-			Rigidbody newRigidbody = weaponModel.AddComponent<Rigidbody>();
+
+			if (weaponModel.GetComponent< Rigidbody > () == null) 
+			{
+				//Rigidbody newRigidbody = 
+					weaponModel.AddComponent<Rigidbody> ();
+			}
 			Destroy(weaponModel.GetComponent< meleeStrike > ());
 
-			if (offhandModel != null) 
+			if (offhandModel!= null&&offhandModel.GetComponent< meleeStrike > () != null) 
 			{
-				Rigidbody offRigidbody = offhandModel.AddComponent<Rigidbody>();			
+				Destroy (offhandModel.GetComponent< meleeStrike > ());
+			}
+			if (offhandModel != null && offhandModel.GetComponent< Rigidbody > () == null )
+			{
+				//Rigidbody offRigidbody = 
+					offhandModel.AddComponent<Rigidbody>();			
 			}
 		
 		}
