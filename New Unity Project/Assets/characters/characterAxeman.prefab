@@ -289,6 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df5842329b4e4e54690ad8f8dc63cb0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aviableInteraction: 0
   isPlayer: 1
   isGood: 1
   isInvader: 0
@@ -303,7 +304,12 @@ MonoBehaviour:
   shieldModel: {fileID: 1637209433487164, guid: 3f309224251536c408bd25242cbb43c0,
     type: 2}
   health: 15
+  charCanvas: {fileID: 0}
+  textDisplayerPrefab: {fileID: 223280951033680522, guid: e83542a251990e04eb54757569cced5d,
+    type: 2}
+  textContent: {fileID: 0}
   isHostile: 0
+  displayedMessage: 
   charController: {fileID: 0}
   leap: 0
   stamina: 0

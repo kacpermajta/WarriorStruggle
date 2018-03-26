@@ -7,7 +7,7 @@ public class botControl : MonoBehaviour {
 	public enum equipment {holyBolt, bow, axe,sword, xbow};
 	public Transform pathFinder;
 	float range, curDist, checkDist;
-	Vector3 temporary;
+	Vector3 temporary,botLocation;
 	bool temporaryBool;
 	Transform mainHero;
 	// Use this for initialization
@@ -29,13 +29,14 @@ public class botControl : MonoBehaviour {
 				child.GetComponent< character_behavior > ().charLeft = false;
 				child.GetComponent< character_behavior > ().charRight = false;
 				mainHero = null;
+				botLocation = child.GetComponent< character_behavior > ().location;
 
 				foreach (Transform agent in transform) //loop through potential target agents
 				{
 					//check if target agents can be considered victim
-					if (child.GetComponent< character_behavior > ().isGood != agent.GetComponent< character_behavior > ().isGood && agent.GetComponent< character_behavior > ().mapPlane == child.GetComponent< character_behavior > ().mapPlane && !Physics.Linecast (agent.GetComponent< character_behavior > ().location, child.GetComponent< character_behavior > ().location)) 
+					if (child.GetComponent< character_behavior > ().isGood != agent.GetComponent< character_behavior > ().isGood && agent.GetComponent< character_behavior > ().mapPlane == child.GetComponent< character_behavior > ().mapPlane && !Physics.Linecast (agent.GetComponent< character_behavior > ().location, botLocation)) 
 					{
-						checkDist = Vector3.Distance (agent.GetComponent< character_behavior > ().location, child.GetComponent< character_behavior > ().location);
+						checkDist = Vector3.Distance (agent.GetComponent< character_behavior > ().location, botLocation);
 						//check if target is better than previously selected
 						if (checkDist < curDist) {
 							curDist = checkDist;
@@ -79,7 +80,7 @@ public class botControl : MonoBehaviour {
 					//check if range troop should account for distance
 					if (child.GetComponent< character_behavior > ().weapon == character_behavior.equipment.bow) 
 					{
-						temporary.y += Mathf.Exp (Mathf.Abs (temporary.x - child.GetComponent< character_behavior > ().location.x) * 0.2f) * 0.3f;
+						temporary.y += Mathf.Exp (Mathf.Abs (temporary.x - botLocation.x) * 0.12f) * 0.32f;
 						temporary += 3 * child.GetComponent< character_behavior > ().aimError;
 					}
 
@@ -88,9 +89,11 @@ public class botControl : MonoBehaviour {
 
 					//enemy in sight
 
-					if (child.GetComponent< character_behavior > ().weapon == character_behavior.equipment.bow ||
-					      child.GetComponent< character_behavior > ().weapon == character_behavior.equipment.xbow) 
+					if ((child.GetComponent< character_behavior > ().weapon == character_behavior.equipment.bow ||
+						child.GetComponent< character_behavior > ().weapon == character_behavior.equipment.xbow)
+						&& Mathf.Abs(temporary.x-botLocation.x)>Mathf.Abs(temporary.x-child.GetComponent< character_behavior > ().guard.x)) 
 					{
+						
 						range = 30;
 						child.GetComponent< character_behavior > ().charStrike = true;
 					} 
@@ -132,9 +135,9 @@ public class botControl : MonoBehaviour {
 					}
 								
 					//remember if victim is right
-					temporaryBool = (child.GetComponent< character_behavior > ().aim.x - child.GetComponent< character_behavior > ().location.x > 0f);
+					temporaryBool = (child.GetComponent< character_behavior > ().aim.x - botLocation.x > 0f);
 					//check if we are on victim
-					if (Mathf.Abs (child.GetComponent< character_behavior > ().aim.x - child.GetComponent< character_behavior > ().location.x) < 0.7f) {
+					if (Mathf.Abs (child.GetComponent< character_behavior > ().aim.x - botLocation.x) < 0.7f) {
 						temporaryBool = !temporaryBool;
 					}
 					//victim too close

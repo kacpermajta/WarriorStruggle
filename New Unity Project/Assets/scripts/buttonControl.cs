@@ -81,6 +81,19 @@ public class buttonControl : MonoBehaviour {
 
 	}
 
+	public void setStandCrl () {
+		playerSettings.classicCrl = false;
+		SceneManager.LoadScene("menu");
+
+	}
+
+	public void setClassCrl () {
+		playerSettings.classicCrl = true;
+		SceneManager.LoadScene("menu");
+
+	}
+
+
 
 	// Update is called once per frame
 	public void ExitGame () {

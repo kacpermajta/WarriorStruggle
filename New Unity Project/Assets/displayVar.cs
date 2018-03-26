@@ -19,7 +19,7 @@ public class displayVar : MonoBehaviour {
 	}
 
 	public void increaseDiff(){
-		if (playerSettings.difficulty < 7){
+		if (playerSettings.difficulty < 8){
 			playerSettings.difficulty++;
 		}
 	}

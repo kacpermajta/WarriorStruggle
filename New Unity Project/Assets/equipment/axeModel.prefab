@@ -136,4 +136,5 @@ MonoBehaviour:
   damage: 4
   owner: {fileID: 0}
   victim: {fileID: 0}
-  range: 1.5
+  range: 1.4
+  offhand: 0

@@ -60,7 +60,6 @@ GameObject:
   - component: {fileID: 143923279784777372}
   - component: {fileID: 54249031104684516}
   - component: {fileID: 136188446629950476}
-  - component: {fileID: 20481422500233334}
   m_Layer: 2
   m_Name: characterSpearman
   m_TagString: characters
@@ -162,40 +161,6 @@ Camera:
   orthographic: 1
   orthographic size: 7
   m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
---- !u!20 &20481422500233334
-Camera:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1326338991703506}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -335,6 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df5842329b4e4e54690ad8f8dc63cb0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aviableInteraction: 0
   isPlayer: 1
   isGood: 1
   isInvader: 0
@@ -348,8 +314,13 @@ MonoBehaviour:
   bowModel: {fileID: 1756800071722060, guid: 8188fd844296974478a41e7bb659e35a, type: 2}
   shieldModel: {fileID: 1637209433487164, guid: 3f309224251536c408bd25242cbb43c0,
     type: 2}
-  health: 0
+  health: 10
+  charCanvas: {fileID: 0}
+  textDisplayerPrefab: {fileID: 223280951033680522, guid: e83542a251990e04eb54757569cced5d,
+    type: 2}
+  textContent: {fileID: 0}
   isHostile: 0
+  displayedMessage: 
   charController: {fileID: 0}
   leap: 0
   stamina: 0

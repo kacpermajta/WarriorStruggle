@@ -14,9 +14,25 @@ public class passageHandler : MonoBehaviour {
 	void Update () {
 		
 	}
+
+	void OnTriggerExit(Collider other)
+	{
+		if (other.GetComponent< character_behavior > () != null && other.GetComponent< character_behavior > ().isPlayer) {
+			other.GetComponent< character_behavior > ().aviableInteraction = character_behavior.interaction.none;
+		}
+	}
+
+
+
 	void OnTriggerStay(Collider other) {
 		
-		if(other.GetComponent< character_behavior > () != null&& other.GetComponent< character_behavior > ().stamina >0&& other.GetComponent< character_behavior > ().charInteract ==true)
+		if(other.GetComponent< character_behavior > () != null){ 
+			if (other.GetComponent< character_behavior > ().isPlayer) {
+				other.GetComponent< character_behavior > ().aviableInteraction = character_behavior.interaction.passage;
+
+			}
+
+		if(other.GetComponent< character_behavior > ().stamina >0&& other.GetComponent< character_behavior > ().charInteract ==true)
 		{	//teleport character
 			other.transform.Translate (target);
 			other.GetComponent< character_behavior > ().mapPlane = target.z;
@@ -27,6 +43,6 @@ public class passageHandler : MonoBehaviour {
 			other.GetComponent< character_behavior > ().stamina = -60f;
 
 		}
-
+		}
 	}
 }

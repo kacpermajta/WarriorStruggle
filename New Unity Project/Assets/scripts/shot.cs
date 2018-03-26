@@ -28,6 +28,9 @@ public class shot : MonoBehaviour {
 		}
 	}
 
+
+
+
 	void OnTriggerEnter(Collider other) 
 	//flying missile hit
 	{
@@ -35,7 +38,13 @@ public class shot : MonoBehaviour {
 		{
 			if (other.GetComponent< character_behavior > () != null) 
 			{
-				other.GetComponent< character_behavior > ().hit (damage, transform.eulerAngles);
+				if (other is CapsuleCollider) {
+					other.GetComponent< character_behavior > ().hit (1.5f * damage, transform.eulerAngles);
+
+
+				} else {
+					other.GetComponent< character_behavior > ().hit (damage, transform.eulerAngles);
+				}
 			}
 
 			if (physical) 

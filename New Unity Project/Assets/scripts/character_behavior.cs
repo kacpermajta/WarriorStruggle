@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class character_behavior : MonoBehaviour {
 	public enum equipment {none, spell, bow, axe,sword, xbow, spear, shield, dagger, sideWeapon};
-
+	public enum interaction {none, passage, sigil, body, door};
+	public interaction aviableInteraction;
 
 	public bool isPlayer,  isGood, isInvader, isGuardian;
 	public float exhaust, speed, damage, secDamage;
@@ -13,15 +15,18 @@ public class character_behavior : MonoBehaviour {
 	public GameObject bowModel,shieldModel;
 	public  float health;
 
+	public Canvas charCanvas;
+	public Canvas  textDisplayerPrefab;
+	public Text textContent;
 
 	public bool isHostile;
 
-
+	public string displayedMessage;
 	public CharacterController charController;
 	float x, y, z, jump, orientation;
 	public int leap;
 	public float stamina, mana, slash, thrust,offslash;
-	public float  mapPlane;
+	public float  mapPlane,penShift;
 	public equipment offEquipment;
 	Vector3 calcMov;
 	public Vector3 location,guard, leftGuard,lokacja;
@@ -38,8 +43,16 @@ public class character_behavior : MonoBehaviour {
 //eq initialisation
 		weaponModel= GameObject.Instantiate(bowModel, location, Quaternion.identity);
 		weaponModel.transform.parent = gameObject.transform;
+		displayedMessage = "";
+		charCanvas=GameObject.Instantiate(textDisplayerPrefab, new Vector3 (0f, 0f, 0f), Quaternion.identity);
+//		textDisplayer=new Text
 
+		Transform child =  charCanvas.transform.Find("Text");
+		textContent = child.GetComponent<Text>();
 
+		//textContent= charCanvas.GetComponent<Text>();
+
+		charCanvas.transform.SetParent (gameObject.transform,false);
 
 		if (weapon == equipment.axe||weapon == equipment.sword||weapon == equipment.spear) {
 			weaponModel.GetComponent< meleeStrike> ().owner = gameObject;
@@ -74,23 +87,27 @@ public class character_behavior : MonoBehaviour {
 		}
 		if(isPlayer==false)
 		{
-
-			if (weapon == equipment.sword && playerSettings.difficulty < 4) 
+			
+			if (weapon == equipment.sword && playerSettings.difficulty < 5) 
 			{
-				speed += (playerSettings.difficulty - 4) * 0.002f;
+				speed += (playerSettings.difficulty - 5) * 0.002f;
 			} else 
 			{
-				speed += (playerSettings.difficulty - 4) * 0.001f;
+				speed += (playerSettings.difficulty - 5) * 0.001f;
 			}
 			if (weaponModel.GetComponent< meleeStrike > () != null) 
 			{
-			weaponModel.GetComponent< meleeStrike > ().damage*=playerSettings.difficulty/4;
+			weaponModel.GetComponent< meleeStrike > ().damage*=playerSettings.difficulty/5f;
 			}
-			health+= 2*(playerSettings.difficulty - 4);
+			damage*=playerSettings.difficulty/5f;
+			health+= 3*(playerSettings.difficulty - 5);
 		}
 	}
 
 	void Update () {
+
+
+
 		x *= 0.86f;//drag
 		y = -0.13f;//gravity
 		jump = 0;
@@ -183,7 +200,7 @@ public class character_behavior : MonoBehaviour {
 		{
 			leftGuard = guard;
 			leftGuard.y -= 0.3f;
-			if (stamina > 0) {
+			if (mana > 0) {
 				if (charSkill) {
 
 					GameObject missile = GameObject.Instantiate (arrow, guard - new Vector3 (0f, 0.7f, 0f), Quaternion.identity);
@@ -205,15 +222,16 @@ public class character_behavior : MonoBehaviour {
 					missile.GetComponent< shot > ().velocity += 0.2f;
 					missile.GetComponent< shot > ().airborne = true;
 
-					stamina -= 200f;
-
+					mana -= 200f;
+					if(offhandModel==null)
+					{
+						stamina -= 200;
+					}
 
 				}
 			}
-			if (offhandModel != null) 
-			{
-				if (stamina > -20f) 
-				{
+			if (offhandModel != null) {
+				if (mana > -20f) {
 					if (aim.x - location.x < 0) {
 						offhandModel.transform.eulerAngles = (new Vector3 (0f, 180f, 40f));
 					} else {
@@ -233,7 +251,7 @@ public class character_behavior : MonoBehaviour {
 
 				}
 				offhandModel.transform.position = leftGuard;
-			}
+			}  
 
 
 		}
@@ -352,9 +370,11 @@ public class character_behavior : MonoBehaviour {
 
 			if (stamina < -30f) 
 			{
-				slash += 3f;
+				penShift = 1000f;
 
-			}
+			} else {
+				penShift = 0f;
+			}		
 		}
 
 //eq 2hand
@@ -383,10 +403,11 @@ public class character_behavior : MonoBehaviour {
 
 			if (stamina < -30f) 
 			{
-				slash += 3f;
+				penShift = 1000f;
 
+			} else {
+				penShift = 0f;
 			}
-
 
 		}
 //eq thrust
@@ -418,10 +439,11 @@ public class character_behavior : MonoBehaviour {
 			}
 
 
-			if (stamina < -30f) 
-			{
-				slash += 3f;
+			if (stamina < -30f) {
+				penShift = 1000f;
 
+			} else {
+				penShift = 0f;
 			}
 		}
 			
@@ -433,7 +455,7 @@ public class character_behavior : MonoBehaviour {
 			weaponModel.transform.position = guard;
 
 			if (charStrike){
-				if (stamina > 0) 
+				if (stamina > 0 && Mathf.Abs(aim.x-location.x)>Mathf.Abs(aim.x-guard.x)) 
 				{
 					
 					GameObject missile = GameObject.Instantiate(arrow, guard-new Vector3(0f,0.7f,0f), Quaternion.identity);
@@ -497,7 +519,7 @@ public class character_behavior : MonoBehaviour {
 					stamina = -50f;
 
 				}
-			}else if(charStrike && stamina >14f)
+			}else if(charStrike && stamina >14f&&Mathf.Abs(aim.x-location.x)>Mathf.Abs(aim.x-guard.x))
 			{
 				//nock
 				GameObject missile = GameObject.Instantiate(arrow, guard-new Vector3(0f,0.7f,0f), Quaternion.identity);
@@ -557,15 +579,27 @@ public class character_behavior : MonoBehaviour {
 			weaponModel.transform.Rotate (new Vector3 (0f, 0f, 180f));
 		
 		}
-		weaponModel.transform.Translate(new Vector3 (-thrust, 0f, 0f));
+		weaponModel.transform.Translate(new Vector3 (-thrust, 0f, penShift));
 
 		calcMov.x=x;
 		calcMov.y=jump+y;
 		calcMov.z=mapPlane-location.z;
 		charController.Move(calcMov);
 
+		if (aviableInteraction == interaction.passage)
+			displayedMessage = "Press F to go through passage";
+		else if (aviableInteraction == interaction.sigil)
+			displayedMessage = "Hold F to activate sigil";
+		
+		else
+			displayedMessage = "";
+		
+		textContent.text = displayedMessage;
+
 
 	}
+
+
 
 //function when character is hit
 	public void hit(float damage, Vector3 odrzut)
@@ -576,7 +610,11 @@ public class character_behavior : MonoBehaviour {
 			if (isPlayer) 
 			{
 				controller.alive = false;
+			//	controller.ShowDelayed ();
 			}
+			textContent.text = "";
+			//Destroy(charCanvas);
+
 			Destroy(gameObject.GetComponent< character_behavior > ());
 			Destroy(gameObject.GetComponent< CharacterController > ());
 			gameObject.GetComponent< Rigidbody > ().useGravity = true;
@@ -606,4 +644,7 @@ public class character_behavior : MonoBehaviour {
 		
 		}
 	}
+
+
+
 }

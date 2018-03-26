@@ -33,8 +33,14 @@ public class meleeStrike : MonoBehaviour {
 				{
 					if (owner.GetComponent< character_behavior > ().stamina > 0) 
 					{
-						other.GetComponent< character_behavior > ().hit (damage, transform.eulerAngles);
+						
 
+						if (other is CapsuleCollider) {
+							other.GetComponent< character_behavior > ().hit (1.5f * damage, transform.eulerAngles);
+
+						} else {
+							other.GetComponent< character_behavior > ().hit (damage, transform.eulerAngles);
+						}
 					}
 
 				}
