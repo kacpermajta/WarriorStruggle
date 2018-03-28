@@ -31,9 +31,10 @@ public class shot : MonoBehaviour {
 
 
 
-	void OnTriggerEnter(Collider other) 
+	void OnTriggerStay(Collider other) 
 	//flying missile hit
 	{
+		
 		if(airborne)
 		{
 			if (other.GetComponent< character_behavior > () != null) 
@@ -45,6 +46,10 @@ public class shot : MonoBehaviour {
 				} else {
 					other.GetComponent< character_behavior > ().hit (damage, transform.eulerAngles);
 				}
+			}
+			if (other.GetComponent< enviromentDamage > () != null) {
+				other.GetComponent< enviromentDamage > ().hit (damage, transform.eulerAngles);
+
 			}
 
 			if (physical) 

@@ -19,6 +19,11 @@ public class heroSelection : MonoBehaviour {
 	public GameObject character13;
 	public GameObject character14;
 	public GameObject character15;
+	public GameObject character16;
+	public GameObject character17;
+	public GameObject character18;
+	public GameObject character19;
+	public GameObject character20;
 
 	public void mainMenu () {
 		SceneManager.LoadScene("menu");
@@ -107,6 +112,37 @@ public class heroSelection : MonoBehaviour {
 	}
 	public void hero15 () {
 		playerSettings.playerHero=character15;
+		SceneManager.LoadScene("menu");
+
+	}
+
+
+	public void hero16 () {
+		playerSettings.playerHero=character16;
+		SceneManager.LoadScene("menu");
+
+	}
+
+	public void hero17 () {
+		playerSettings.playerHero=character17;
+		SceneManager.LoadScene("menu");
+
+	}
+
+	public void hero18 () {
+		playerSettings.playerHero=character18;
+		SceneManager.LoadScene("menu");
+
+	}
+
+	public void hero19 () {
+		playerSettings.playerHero=character19;
+		SceneManager.LoadScene("menu");
+
+	}
+
+	public void hero20 () {
+		playerSettings.playerHero=character20;
 		SceneManager.LoadScene("menu");
 
 	}

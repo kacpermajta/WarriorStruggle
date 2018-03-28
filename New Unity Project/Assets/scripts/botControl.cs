@@ -29,22 +29,50 @@ public class botControl : MonoBehaviour {
 				child.GetComponent< character_behavior > ().charLeft = false;
 				child.GetComponent< character_behavior > ().charRight = false;
 				mainHero = null;
+//				temporary = null;
 				botLocation = child.GetComponent< character_behavior > ().location;
 
-				foreach (Transform agent in transform) //loop through potential target agents
-				{
-					//check if target agents can be considered victim
-					if (child.GetComponent< character_behavior > ().isGood != agent.GetComponent< character_behavior > ().isGood && agent.GetComponent< character_behavior > ().mapPlane == child.GetComponent< character_behavior > ().mapPlane && !Physics.Linecast (agent.GetComponent< character_behavior > ().location, botLocation)) 
-					{
-						checkDist = Vector3.Distance (agent.GetComponent< character_behavior > ().location, botLocation);
-						//check if target is better than previously selected
-						if (checkDist < curDist) {
-							curDist = checkDist;
-							mainHero = agent;
+				if (child.GetComponent< character_behavior > ().isSiege) {
+					temporary = child.GetComponent< character_behavior > ().siegeTarget;
+					range = child.GetComponent< character_behavior > ().siegeDistance;
+					mainHero = child;
+					//					if (Mathf.Abs (child.GetComponent< character_behavior > ().siegeTarget.x - botLocation.x) > child.GetComponent< character_behavior > ().siegeDistance) {
+					//						if (child.GetComponent< character_behavior > ().siegeTarget.x > botLocation.x) {
+					//							child.GetComponent< character_behavior > ().charRight = true;
+					//							child.GetComponent< character_behavior > ().charLeft = false;
+					//						
+					//						} else {
+					//
+					//							child.GetComponent< character_behavior > ().charLeft = true;
+					//							child.GetComponent< character_behavior > ().charRight = false;
+					//						}
+					//					} else {
+					//						child.GetComponent< character_behavior > ().charLeft = false;
+					//						child.GetComponent< character_behavior > ().charRight = false;
+					//
+					//
+					//						child.GetComponent< character_behavior > ().charStrike = true;
+					//					}
+
+
+				} else {
+					range = 0f;
+
+					foreach (Transform agent in transform) { //loop through potential target agents
+						//check if target agents can be considered victim
+						if (child.GetComponent< character_behavior > ().isGood != agent.GetComponent< character_behavior > ().isGood && agent.GetComponent< character_behavior > ().mapPlane == child.GetComponent< character_behavior > ().mapPlane && !Physics.Linecast (agent.GetComponent< character_behavior > ().location, botLocation)) {
+							checkDist = Vector3.Distance (agent.GetComponent< character_behavior > ().location, botLocation);
+							//check if target is better than previously selected
+							if (checkDist < curDist) {
+								curDist = checkDist;
+								mainHero = agent;
+								temporary = mainHero.GetComponent< character_behavior > ().location;
+
+
+							}
 						}
 					}
 				}
-
 				//if no victim selected
 				if (mainHero == null) {
 					child.GetComponent< character_behavior > ().charStrike = false;
@@ -75,7 +103,7 @@ public class botControl : MonoBehaviour {
 				} else 
 				{
 					
-					temporary = mainHero.GetComponent< character_behavior > ().location;
+					//temporary = mainHero.GetComponent< character_behavior > ().location;
 
 					//check if range troop should account for distance
 					if (child.GetComponent< character_behavior > ().weapon == character_behavior.equipment.bow) 
@@ -94,7 +122,7 @@ public class botControl : MonoBehaviour {
 						&& Mathf.Abs(temporary.x-botLocation.x)>Mathf.Abs(temporary.x-child.GetComponent< character_behavior > ().guard.x)) 
 					{
 						
-						range = 30;
+						range = 30f;
 						child.GetComponent< character_behavior > ().charStrike = true;
 					} 
 					else if (child.GetComponent< character_behavior > ().weapon == character_behavior.equipment.axe ||
@@ -104,11 +132,12 @@ public class botControl : MonoBehaviour {
 						
 						if (child.GetComponent< character_behavior > ().weaponModel != null) 
 						{
-							range = child.GetComponent< character_behavior > ().weaponModel.GetComponent< meleeStrike > ().range;
-						} else 
-						{
-							range = 0f;
-						}
+							range += child.GetComponent< character_behavior > ().weaponModel.GetComponent< meleeStrike > ().range;
+						} 
+//						else 
+//						{
+//							range += 0f;
+//						}
 
 						if (Vector3.Distance (child.GetComponent< character_behavior > ().aim, child.GetComponent< character_behavior > ().guard) > range+0.1f) 
 						{	//victim too far to strike

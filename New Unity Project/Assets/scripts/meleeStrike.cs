@@ -28,10 +28,10 @@ public class meleeStrike : MonoBehaviour {
 		{	
 			if( other.transform.gameObject != owner &&other.tag != "nonexist")
 			{	//weapon hit
-
-				if (other.GetComponent< character_behavior > () != null) 
+				if (owner.GetComponent< character_behavior > ().stamina > 0||owner==null) 
 				{
-					if (owner.GetComponent< character_behavior > ().stamina > 0) 
+					
+					if (other.GetComponent< character_behavior > () != null) 
 					{
 						
 
@@ -41,6 +41,11 @@ public class meleeStrike : MonoBehaviour {
 						} else {
 							other.GetComponent< character_behavior > ().hit (damage, transform.eulerAngles);
 						}
+					}
+					if (other.GetComponent< enviromentDamage > () != null) {
+						other.GetComponent< enviromentDamage > ().hit (damage, transform.eulerAngles);
+					
+					
 					}
 
 				}

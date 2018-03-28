@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class character_behavior : MonoBehaviour {
-	public enum equipment {none, spell, bow, axe,sword, xbow, spear, shield, dagger, sideWeapon};
+	public enum equipment {none, spell, bow, axe,sword, xbow, spear, shield, dagger, sideWeapon, conjure};
 	public enum interaction {none, passage, sigil, body, door};
 	public interaction aviableInteraction;
 
 	public bool isPlayer,  isGood, isInvader, isGuardian;
-	public float exhaust, speed, damage, secDamage;
+	public float exhaust,offexhaust, speed, damage, secDamage;
 	public equipment weapon;
+
+	public equipment offEquipment;
 	public GameObject arrow;
 	public GameObject bowModel,shieldModel;
 	public  float health;
@@ -18,8 +20,8 @@ public class character_behavior : MonoBehaviour {
 	public Canvas charCanvas;
 	public Canvas  textDisplayerPrefab;
 	public Text textContent;
-
-	public bool isHostile;
+	public int SiegeCounter;
+	public bool isHostile, isSiege;
 
 	public string displayedMessage;
 	public CharacterController charController;
@@ -27,13 +29,15 @@ public class character_behavior : MonoBehaviour {
 	public int leap;
 	public float stamina, mana, slash, thrust,offslash;
 	public float  mapPlane,penShift;
-	public equipment offEquipment;
 	Vector3 calcMov;
 	public Vector3 location,guard, leftGuard,lokacja;
 	public GameObject weaponModel, offhandModel;
 	public Vector3 aim;
 	public  bool charUp, charLeft, charRight, charStrike, charSkill, charInteract;
 	public Vector3 aimError;
+	public Vector3 siegeTarget;
+	public float siegeDistance;
+
 	// Use this for initialization
 	void Start () {
 		charController = gameObject.GetComponent<CharacterController>();
@@ -59,7 +63,7 @@ public class character_behavior : MonoBehaviour {
 		}
 
 
-		if (shieldModel != null) {
+		if (shieldModel != null&&offEquipment!=equipment.conjure) {
 			offhandModel = GameObject.Instantiate (shieldModel, location, Quaternion.identity);
 			offhandModel.transform.parent = gameObject.transform;
 			if(offEquipment==equipment.sideWeapon)
@@ -287,6 +291,42 @@ public class character_behavior : MonoBehaviour {
 
 
 			} 
+		//eq conjure
+		if (shieldModel != null && offEquipment==equipment.conjure ) {
+			
+			if (mana > 0) {
+				if (charSkill) {
+					GameObject missile;
+					if (shieldModel.GetComponent<shot> () == null) {
+
+						RaycastHit nest;
+						aim.z = mapPlane;
+						Physics.Raycast (aim, new Vector3 (0f, -1f, 0f), out nest);
+//					Vector3 spawnPoint = nest.point;
+//					spawnPoint.z = mapPlane;
+
+										
+						missile = GameObject.Instantiate (shieldModel, nest.point, Quaternion.identity);
+					} else {
+						aim.z = mapPlane;
+
+						missile = GameObject.Instantiate (shieldModel, aim, Quaternion.identity);
+					}
+					if (aim.x - guard.x > 0) {
+					//	missile.transform.Translate (0.5f * Mathf.Cos (orientation + 3.14f), 0.7f + 0.5f * Mathf.Sin (orientation + 3.14f), 0f);
+
+						missile.transform.Rotate (0f, 180f, 0f);
+
+					} 
+					mana -= offexhaust;
+
+
+				}
+			}
+
+
+
+		} 
 
 
 		//eq offhand blade
@@ -596,6 +636,11 @@ public class character_behavior : MonoBehaviour {
 		
 		textContent.text = displayedMessage;
 
+		if (SiegeCounter > 0) {
+			isSiege = true;
+			SiegeCounter--;
+		} else
+			isSiege = false;
 
 	}
 

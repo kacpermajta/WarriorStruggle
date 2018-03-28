@@ -295,19 +295,23 @@ MonoBehaviour:
   isInvader: 0
   isGuardian: 0
   exhaust: 150
+  offexhaust: 0
   speed: 0
   damage: 5
   secDamage: 0
   weapon: 5
+  offEquipment: 0
   arrow: {fileID: 1865606325121920, guid: da62e1866c7dc7141a8514a05cbfd27d, type: 2}
   bowModel: {fileID: 1511677098049430, guid: e3a3d36c8d5bae641833d7edad9de920, type: 2}
   shieldModel: {fileID: 0}
-  health: 0
+  health: 15
   charCanvas: {fileID: 0}
   textDisplayerPrefab: {fileID: 223280951033680522, guid: e83542a251990e04eb54757569cced5d,
     type: 2}
   textContent: {fileID: 0}
+  SiegeCounter: 0
   isHostile: 0
+  isSiege: 0
   displayedMessage: 
   charController: {fileID: 0}
   leap: 0
@@ -317,7 +321,7 @@ MonoBehaviour:
   thrust: 0
   offslash: 0
   mapPlane: 0
-  offEquipment: 0
+  penShift: 0
   location: {x: 0, y: 0, z: 0}
   guard: {x: 0, y: 0, z: 0}
   leftGuard: {x: 0, y: 0, z: 0}
@@ -332,6 +336,8 @@ MonoBehaviour:
   charSkill: 0
   charInteract: 0
   aimError: {x: 0, y: 0, z: 0}
+  siegeTarget: {x: 0, y: 0, z: 0}
+  siegeDistance: 0
 --- !u!114 &114900884889088518
 MonoBehaviour:
   m_ObjectHideFlags: 1

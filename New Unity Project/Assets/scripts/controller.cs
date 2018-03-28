@@ -62,19 +62,7 @@ public class controller : MonoBehaviour {
 			else
 				moveRight = false;
 			
-			if (Input.GetKey (KeyCode.C)) 
-			{
-				Strike = true;
-				Skill = false;
-			} else if (Input.GetKey (KeyCode.V)) 
-			{
-				Skill = true;
-				Strike = false;
-			} else 
-			{
-				Skill = false;
-				Strike = false;
-			}
+
 
 
 
@@ -93,20 +81,21 @@ public class controller : MonoBehaviour {
 				moveRight = true;
 			else
 				moveRight = false;
-			if (Input.GetKey (KeyCode.Mouse0)) 
-			{
-				Strike = true;
-				Skill = false;
-			} else if (Input.GetKey (KeyCode.Mouse1)) 
-			{
-				Skill = true;
-				Strike = false;
-			} else 
-			{
-				Skill = false;
-				Strike = false;
-			}
+			
 
+		}
+		if (Input.GetKey (KeyCode.Mouse0)) 
+		{
+			Strike = true;
+			Skill = false;
+		} else if (Input.GetKey (KeyCode.Mouse1)) 
+		{
+			Skill = true;
+			Strike = false;
+		} else 
+		{
+			Skill = false;
+			Strike = false;
 		}
 		if (Input.GetKey(KeyCode.F))
 			Interact=true;
