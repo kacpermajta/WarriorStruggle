@@ -127,17 +127,20 @@ public class botControl : MonoBehaviour {
 					} 
 					else if (child.GetComponent< character_behavior > ().weapon == character_behavior.equipment.axe ||
 					            child.GetComponent< character_behavior > ().weapon == character_behavior.equipment.sword ||
-					            child.GetComponent< character_behavior > ().weapon == character_behavior.equipment.spear) 
+					            child.GetComponent< character_behavior > ().weapon == character_behavior.equipment.spear||
+				(child.GetComponent< character_behavior > ().weapon == character_behavior.equipment.conjure )
+
+					) 
 					{
 						
 						if (child.GetComponent< character_behavior > ().weaponModel != null) 
 						{
 							range += child.GetComponent< character_behavior > ().weaponModel.GetComponent< meleeStrike > ().range;
 						} 
-//						else 
-//						{
-//							range += 0f;
-//						}
+						else 
+						{
+							range += 1f;
+						}
 
 						if (Vector3.Distance (child.GetComponent< character_behavior > ().aim, child.GetComponent< character_behavior > ().guard) > range+0.1f) 
 						{	//victim too far to strike
@@ -188,10 +191,23 @@ public class botControl : MonoBehaviour {
 					} 
 
 				}//end of victim script
-				if ((child.GetComponent< character_behavior > ().charRight || child.GetComponent< character_behavior > ().charLeft) && !child.GetComponent< character_behavior > ().charStrike && (child.GetComponent<CharacterController> ().collisionFlags & CollisionFlags.Sides) != 0) {
-					child.GetComponent< character_behavior > ().charUp = true;
-				} else {
-					child.GetComponent< character_behavior > ().charUp = false;
+				child.GetComponent< character_behavior > ().charUp = false;
+
+				if ((child.GetComponent< character_behavior > ().charRight || child.GetComponent< character_behavior > ().charLeft))
+				{
+					if (child.GetComponent< character_behavior > ().offEquipment == character_behavior.equipment.flight && temporary.y > botLocation.y) {
+						child.GetComponent< character_behavior > ().charSkill=true;
+					
+					} else {
+						child.GetComponent< character_behavior > ().charSkill=false;
+
+					}
+
+					if( !child.GetComponent< character_behavior > ().charStrike && (child.GetComponent<CharacterController> ().collisionFlags & CollisionFlags.Sides) != 0) {
+						child.GetComponent< character_behavior > ().charUp = true;
+					} else {
+					
+					}
 				}
 			}///end of single bot script
 

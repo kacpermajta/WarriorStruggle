@@ -8,6 +8,7 @@ public class meleeStrike : MonoBehaviour {
 	public GameObject victim;
 	public float range;
 	public bool offhand;
+	public Vector3 positioning;
 
 	// Use this for initialization
 	void Start () {
@@ -24,11 +25,17 @@ public class meleeStrike : MonoBehaviour {
 	void OnTriggerStay(Collider other) 
 	{
 		
-		if((!offhand && owner.GetComponent< character_behavior > ().charStrike)||(offhand &&owner.GetComponent< character_behavior > ().charSkill))
+
+
+		if(other!=null && 
+			(//owner==null||owner.GetComponent< character_behavior > ()!=null &&
+				(!offhand && (owner.GetComponent< character_behavior > ().charStrike|| 
+				owner.GetComponent< character_behavior > ().weapon==character_behavior.equipment.conjure))||
+				(offhand &&owner.GetComponent< character_behavior > ().charSkill)))
 		{	
 			if( other.transform.gameObject != owner &&other.tag != "nonexist")
 			{	//weapon hit
-				if (owner.GetComponent< character_behavior > ().stamina > 0||owner==null) 
+				if (gameObject.tag=="nonexit" || owner.GetComponent< character_behavior > ().stamina > 0) 
 				{
 					
 					if (other.GetComponent< character_behavior > () != null) 
@@ -49,9 +56,9 @@ public class meleeStrike : MonoBehaviour {
 					}
 
 				}
-
-				owner.GetComponent< character_behavior > ().stamina = -15;
-
+				if (gameObject.tag != "nonexist") {
+					owner.GetComponent< character_behavior > ().stamina = -15;
+				}
 			}
 		
 		}

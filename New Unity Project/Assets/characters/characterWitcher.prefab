@@ -91,7 +91,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1437672446084638}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -43.15814, y: 98.19115, z: 5.0839067}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4541702952374802}
@@ -308,11 +308,11 @@ MonoBehaviour:
   exhaust: 15
   offexhaust: 0
   speed: 0
-  damage: 2
-  secDamage: 1
+  damage: 3
+  secDamage: 2
   weapon: 4
   offEquipment: 1
-  arrow: {fileID: 1565612498717370, guid: e7fe79fbccc963c429515ba6f2c1a3cf, type: 2}
+  arrow: {fileID: 1876106895197478, guid: 08aa893e207e17d49856cab8e6c6582e, type: 2}
   bowModel: {fileID: 1703388319312976, guid: 50f2a1aa85fdf794e9aa29a0e4769eae, type: 2}
   shieldModel: {fileID: 0}
   health: 12
@@ -323,14 +323,19 @@ MonoBehaviour:
   SiegeCounter: 0
   isHostile: 0
   isSiege: 0
+  isClimbing: 0
   displayedMessage: 
+  nameTag: 
   charController: {fileID: 0}
+  orientation: 0
   leap: 0
   stamina: 0
   mana: 0
   slash: 0
   thrust: 0
   offslash: 0
+  jump: 0
+  windup: 0
   mapPlane: 0
   penShift: 0
   location: {x: 0, y: 0, z: 0}

@@ -111,3 +111,4 @@ MonoBehaviour:
   victim: {fileID: 0}
   range: 1.1
   offhand: 1
+  positioning: {x: 0.5, y: 0, z: 0}

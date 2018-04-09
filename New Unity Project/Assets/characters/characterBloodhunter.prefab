@@ -104,7 +104,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1658263167000820}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.868132, y: 8.258188, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4657699318555524}
@@ -295,10 +295,12 @@ MonoBehaviour:
   isInvader: 0
   isGuardian: 0
   exhaust: 15
+  offexhaust: 0
   speed: 0
   damage: 2
   secDamage: 2
   weapon: 3
+  offEquipment: 9
   arrow: {fileID: 0}
   bowModel: {fileID: 1855555749233126, guid: 4e87aa4a0b298b946abce358d84bdc7d, type: 2}
   shieldModel: {fileID: 1395464727611206, guid: 78b912fd24605084cb14be171796e085,
@@ -308,17 +310,24 @@ MonoBehaviour:
   textDisplayerPrefab: {fileID: 223280951033680522, guid: e83542a251990e04eb54757569cced5d,
     type: 2}
   textContent: {fileID: 0}
+  SiegeCounter: 0
   isHostile: 0
+  isSiege: 0
+  isClimbing: 0
   displayedMessage: 
+  nameTag: 
   charController: {fileID: 0}
+  orientation: 0
   leap: 0
   stamina: 0
   mana: 0
   slash: 0
   thrust: 0
   offslash: 0
+  jump: 0
+  windup: 0
   mapPlane: 0
-  offEquipment: 9
+  penShift: 0
   location: {x: 0, y: 0, z: 0}
   guard: {x: 0, y: 0, z: 0}
   leftGuard: {x: 0, y: 0, z: 0}
@@ -333,6 +342,8 @@ MonoBehaviour:
   charSkill: 0
   charInteract: 0
   aimError: {x: 0, y: 0, z: 0}
+  siegeTarget: {x: 0, y: 0, z: 0}
+  siegeDistance: 0
 --- !u!114 &114858312684345730
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class character_behavior : MonoBehaviour {
-	public enum equipment {none, spell, bow, axe,sword, xbow, spear, shield, dagger, sideWeapon, conjure};
+	public enum equipment {none, spell, bow, axe,sword, xbow, spear, shield, dagger, sideWeapon, conjure, flight,mortar};
 	public enum interaction {none, passage, sigil, body, door};
 	public interaction aviableInteraction;
 
@@ -21,13 +21,15 @@ public class character_behavior : MonoBehaviour {
 	public Canvas  textDisplayerPrefab;
 	public Text textContent;
 	public int SiegeCounter;
-	public bool isHostile, isSiege;
+	public bool isHostile, isSiege, isClimbing;
 
 	public string displayedMessage;
+	public string nameTag;
 	public CharacterController charController;
-	float x, y, z, jump, orientation;
+	float x, y, z;  
+	public float orientation;
 	public int leap;
-	public float stamina, mana, slash, thrust,offslash;
+	public float stamina, mana, slash, thrust,offslash, jump, windup;
 	public float  mapPlane,penShift;
 	Vector3 calcMov;
 	public Vector3 location,guard, leftGuard,lokacja;
@@ -41,7 +43,11 @@ public class character_behavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		charController = gameObject.GetComponent<CharacterController>();
-		leap = 15;
+		if (playerSettings.classicJump)
+			leap = 0;
+		else {
+			leap = 15;
+		}
 		location= gameObject.GetComponent<Transform>().position;
 		location.y += 0.5f;
 //eq initialisation
@@ -58,7 +64,7 @@ public class character_behavior : MonoBehaviour {
 
 		charCanvas.transform.SetParent (gameObject.transform,false);
 
-		if (weapon == equipment.axe||weapon == equipment.sword||weapon == equipment.spear) {
+		if (weapon == equipment.axe||weapon == equipment.sword||weapon == equipment.spear||weapon == equipment.conjure) {
 			weaponModel.GetComponent< meleeStrike> ().owner = gameObject;
 		}
 
@@ -114,18 +120,14 @@ public class character_behavior : MonoBehaviour {
 
 		x *= 0.86f;//drag
 		y = -0.13f;//gravity
-		jump = 0;
 
 		lokacja=gameObject.GetComponent<Transform>().position;
 
-		if ((charController.collisionFlags & CollisionFlags.Below) != 0) 
-		{	
-//character on ground and can jump again
-			leap = 15;
-		}
-		if (isPlayer) 
+
+		if (isPlayer&&!playerSettings.isServer) 
 		{	
 //apply controller values
+
 			aim = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			charUp=controller.moveUp;
 			charRight = controller.moveRight;
@@ -134,12 +136,44 @@ public class character_behavior : MonoBehaviour {
 			charSkill = controller.Skill;
 			charInteract = controller.Interact;
 		}
-//movement commends
-		if (charUp) {				
-				jump = 0.2f;
-				leap --;							
-			} 
 
+
+		//movement commends
+
+		if (playerSettings.classicJump) 
+		{//realistic jumps
+			 if ((charController.collisionFlags & CollisionFlags.Below) != 0 && charUp && leap<15) {	
+				//character on ground and can jump again
+				leap+=2;
+			} else if (leap > 0) 
+			{
+				jump = +0.2f;
+				leap--;
+			}
+
+		} 
+		else
+		{//normal jumps
+			if ((charController.collisionFlags & CollisionFlags.Below) != 0) {	
+				//character on ground and can jump again
+				leap = 15;
+			}
+
+			if (charUp&&leap>0) {				
+				jump = +0.2f;
+				leap--;							
+			} 
+			//if (leap < 0) {
+			//	jump = 0.0f;
+			//}
+		}
+
+		if (isClimbing && charUp) 
+		{
+			jump = +0.15f;
+		
+		
+		}
 		if (charRight) {
 			x += speed;
 				jump += 0.03f;
@@ -149,9 +183,7 @@ public class character_behavior : MonoBehaviour {
 			x += -speed;
 				jump += 0.03f;
 			}
-			if (leap < 0) {
-				jump = 0.0f;
-			}
+
 
 		location= gameObject.GetComponent<Transform>().position;
 		location.y += 0.7f;
@@ -160,12 +192,14 @@ public class character_behavior : MonoBehaviour {
 		guard = location;
 		if (aim.x - location.x < 0) {
 
-			guard.x -= 0.5f;
+			guard.x -= weaponModel.GetComponent<meleeStrike> ().positioning.x;
+				
 		} else {
 
-			guard.x += 0.5f;
+			guard.x += weaponModel.GetComponent<meleeStrike> ().positioning.x;
 
 		}
+		guard.y += weaponModel.GetComponent<meleeStrike> ().positioning.y;
 
 		orientation = Mathf.Atan ((aim.y - guard.y) / (aim.x - guard.x));
 
@@ -196,6 +230,47 @@ public class character_behavior : MonoBehaviour {
 				offhandModel.transform.eulerAngles = (new Vector3 (0f, 0f, 0f));
 			}
 		}
+
+
+
+//eq flight
+		if (offEquipment==equipment.flight ) 
+		{
+			leftGuard = location;
+			if (aim.x > location.x)
+				leftGuard.x += 0.5f;
+			else
+				leftGuard.x-=0.5f;
+
+			//move shield
+			if (charSkill) {
+				leap = 10;
+
+				y += 0.13f;
+//				if (aim.x - location.x < 0)
+//				{
+//
+//					leftGuard.y -= 0.5f * Mathf.Sin (orientation);
+//				} else {
+//					leftGuard.y += 0.5f * Mathf.Sin (orientation);
+//				}
+			}
+//
+			leftGuard.y -= 0.5f;
+			offhandModel.transform.position = leftGuard;
+//
+			//left or right
+			if (aim.x - location.x < 0) 
+			{
+				offhandModel.transform.eulerAngles = (new Vector3 (0f, 180f, 0f));
+			} else 
+			{
+				offhandModel.transform.eulerAngles = (new Vector3 (0f, 0f, 0f));
+			}
+		}
+
+
+
 
 
 
@@ -290,7 +365,7 @@ public class character_behavior : MonoBehaviour {
 
 
 
-			} 
+		} 
 		//eq conjure
 		if (shieldModel != null && offEquipment==equipment.conjure ) {
 			
@@ -312,12 +387,21 @@ public class character_behavior : MonoBehaviour {
 
 						missile = GameObject.Instantiate (shieldModel, aim, Quaternion.identity);
 					}
+
+					if (missile.GetComponent< character_behavior > () != null) 
+					{
+						missile.transform.parent = gameObject.transform.parent.transform.parent.transform.GetChild (0);
+						missile.GetComponent< character_behavior > ().mapPlane = location.z;
+					}
 					if (aim.x - guard.x > 0) {
 					//	missile.transform.Translate (0.5f * Mathf.Cos (orientation + 3.14f), 0.7f + 0.5f * Mathf.Sin (orientation + 3.14f), 0f);
 
 						missile.transform.Rotate (0f, 180f, 0f);
 
 					} 
+
+
+
 					mana -= offexhaust;
 
 
@@ -382,6 +466,117 @@ public class character_behavior : MonoBehaviour {
 
 		}
 
+
+		//eq spells main
+		if (arrow != null && weapon==equipment.spell ) {
+			leftGuard = guard;
+			leftGuard.y -= 0.3f;
+			if (stamina > -200) {
+				if (charStrike) {
+					GameObject missile = GameObject.Instantiate (arrow, guard - new Vector3 (0f, 0.7f, 0f), Quaternion.identity);
+
+					if (aim.x - guard.x < 0) {
+						missile.transform.Translate (0.5f * Mathf.Cos (orientation + 3.14f), 0.7f + 0.5f * Mathf.Sin (orientation + 3.14f), 0f);
+
+						missile.transform.Rotate (0f, 0f, (2.64f + orientation+Random.value) * 360f / 6.28f);
+
+					} else {
+						missile.transform.Translate (0.5f * Mathf.Cos (orientation), 0.7f + 0.5f * Mathf.Sin (orientation), 0f);
+
+						missile.transform.Rotate (0f, 0f, (orientation +Random.value-0.5f)* 360f / 6.28f);
+
+					}
+					missile.GetComponent< shot > ().damage += secDamage;
+					missile.GetComponent< shot > ().velocity += 0.2f;
+					missile.GetComponent< shot > ().airborne = true;
+
+					stamina -= 100f;
+
+
+				}
+			}
+
+
+
+		} 
+//eq conjure main
+		if (arrow != null && weapon==equipment.conjure ) {
+
+			if (stamina > 0) {
+				if (charStrike) {
+					GameObject missile;
+
+
+
+					if (arrow.GetComponent<shot> () != null) 
+					{
+
+						aim.z = mapPlane;
+
+						missile = GameObject.Instantiate (arrow, aim, Quaternion.identity);
+
+
+					}  
+					else if (arrow.GetComponent<meleeStrike> () != null) 
+					{
+						//print ("przypisanie");
+
+						missile = GameObject.Instantiate (arrow, location+arrow.GetComponent<meleeStrike>().positioning, Quaternion.identity);
+						missile.GetComponent<meleeStrike>().owner = gameObject ;
+
+					}	else if (arrow.GetComponent<areaAttack> () != null) 
+					{
+						//print ("przypisanie");
+
+						missile = GameObject.Instantiate (arrow, location+arrow.GetComponent<areaAttack>().positioning, Quaternion.identity);
+						missile.GetComponent<areaAttack>().owner = gameObject ;
+//						if (missile.GetComponent<areaAttack> ().oriented) {
+//						
+//							missile.transform.eulerAngles = (new Vector3 (0f, 0f, (orientation) * 360f / 6.28f));
+//						}
+
+					}else{
+
+						RaycastHit nest;
+						aim.z = mapPlane;
+						Physics.Raycast (aim, new Vector3 (0f, -1f, 0f), out nest);
+						//					Vector3 spawnPoint = nest.point;
+						//					spawnPoint.z = mapPlane;
+
+
+						missile = GameObject.Instantiate (arrow, nest.point, Quaternion.identity);
+					}
+					if (missile.GetComponent<areaAttack> ()!=null && missile.GetComponent<areaAttack> ().oriented) {
+
+						missile.transform.eulerAngles = (new Vector3 (0f, 0f, (orientation) * 360f / 6.28f));
+					}
+
+
+					if (aim.x - guard.x < 0) {
+						//	missile.transform.Translate (0.5f * Mathf.Cos (orientation + 3.14f), 0.7f + 0.5f * Mathf.Sin (orientation + 3.14f), 0f);
+						missile.transform.Rotate (0f, 180f, 0f);
+
+
+						if (arrow.GetComponent<meleeStrike> () != null) {
+							missile.transform.Translate (2*missile.GetComponent<meleeStrike> ().positioning.x, 0f, 0f);
+
+						}						
+						if (arrow.GetComponent<areaAttack> () != null) {
+							missile.transform.Translate (-2*missile.GetComponent<areaAttack> ().positioning.x, 0f, 0f, Space.World);
+
+						}
+
+
+					} 
+						stamina -= exhaust;
+
+
+				}
+			}
+
+
+
+		} 
 
 
 //eq 1hand
@@ -486,18 +681,62 @@ public class character_behavior : MonoBehaviour {
 				penShift = 0f;
 			}
 		}
+//eq mortar
+		if (weapon== equipment.mortar) 
+		{
+			//guard.x -= 0.3f;
+			aimError.x += 0.1f*(Random.value-0.5f-aimError.x);
+			weaponModel.transform.position = guard;
+			if (aim.x - location.x > 0) {
+				orientation = 0.5f;
+			} else {
+				orientation = -0.5f;
 			
+			}
+			if (charStrike){
+				if (stamina > 0) 
+				{
 
-//eq simple shot
+					GameObject missile = GameObject.Instantiate(arrow, guard-new Vector3(0f,0.7f,0f), Quaternion.identity);
+					if (aim.x - guard.x < 0) {
+						missile.transform.Translate (0.8f*Mathf.Cos(orientation+3.14f),0.7f+0.8f*Mathf.Sin(orientation+3.14f),0f);
+
+						missile.transform.Rotate(0f,0f,(3.14f+orientation)*360f/6.28f);
+
+
+					} else 
+					{
+						missile.transform.Translate (0.8f*Mathf.Cos(orientation),0.7f+0.8f*Mathf.Sin(orientation),0f);
+
+						missile.transform.Rotate(0f,0f,orientation*360f/6.28f);
+
+					}
+					missile.GetComponent< shot > ().damage+=damage;
+					missile.GetComponent< shot > ().velocity+=0.1f;
+					missile.GetComponent< shot > ().airborne = true;
+
+					stamina -= exhaust;
+
+				}
+
+			}
+		}
+
+	
+
+
+				
+
+		//eq simple shot
 		if (weapon== equipment.xbow) 
 		{
 			aimError.x += 0.1f*(Random.value-0.5f-aimError.x);
 			weaponModel.transform.position = guard;
 
 			if (charStrike){
-				if (stamina > 0 && Mathf.Abs(aim.x-location.x)>Mathf.Abs(aim.x-guard.x)) 
+				if (stamina > 0 ) 
 				{
-					
+
 					GameObject missile = GameObject.Instantiate(arrow, guard-new Vector3(0f,0.7f,0f), Quaternion.identity);
 					if (aim.x - guard.x < 0) {
 						missile.transform.Translate (0.5f*Mathf.Cos(orientation+3.14f),0.7f+0.5f*Mathf.Sin(orientation+3.14f),0f);
@@ -519,9 +758,9 @@ public class character_behavior : MonoBehaviour {
 					stamina -= exhaust;
 
 				}
-					
+
 			}
-		
+
 		}
 
 
@@ -602,6 +841,8 @@ public class character_behavior : MonoBehaviour {
 			mana++;
 		}
 
+//		GameObject[] skins = gameObject.FindGameObjectsWithTag ("cosmetics");
+
 //apply weapon transform
 		if (aim.x - location.x < 0) 
 		{
@@ -609,28 +850,46 @@ public class character_behavior : MonoBehaviour {
 			weaponModel.transform.eulerAngles = (new Vector3 (0f, 0f, (orientation+slash) * 360f / 6.28f));
 			weaponModel.transform.Rotate(new Vector3 (0f, 180f, 0f));
 
+
+			foreach (Transform cosmetic in transform) {
+				if(cosmetic.gameObject.CompareTag("cosmetics")){
+					cosmetic.transform.eulerAngles = (new Vector3 (0f, 180f, 0f));
+				}
+			}
 		} else
 			
 		{
 
 			weaponModel.transform.eulerAngles = (new Vector3 (0f, 0f, (orientation-slash) * 360f / 6.28f));
+
+
+			foreach (Transform cosmetic in transform) {
+				if(cosmetic.gameObject.CompareTag("cosmetics")){
+					cosmetic.transform.eulerAngles = (new Vector3 (0f, 0f, 0f));
+				}
+			}
 		}
-		if (Mathf.Abs (aim.x - location.x) < 0.5f) {
+		if (!shootsOutside()) {
 			weaponModel.transform.Rotate (new Vector3 (0f, 0f, 180f));
 		
 		}
 		weaponModel.transform.Translate(new Vector3 (-thrust, 0f, penShift));
 
 		calcMov.x=x;
-		calcMov.y=jump+y;
+		calcMov.y=jump+windup+y;
 		calcMov.z=mapPlane-location.z;
 		charController.Move(calcMov);
+		jump = 0;
+		windup = 0;
 
 		if (aviableInteraction == interaction.passage)
 			displayedMessage = "Press F to go through passage";
 		else if (aviableInteraction == interaction.sigil)
 			displayedMessage = "Hold F to activate sigil";
 		
+		else if (playerSettings.isClient || playerSettings.isServer)
+			displayedMessage = nameTag;
+
 		else
 			displayedMessage = "";
 		
@@ -649,6 +908,8 @@ public class character_behavior : MonoBehaviour {
 //function when character is hit
 	public void hit(float damage, Vector3 odrzut)
 	{
+		if (playerSettings.isClient)
+			return;
 		health -= damage;
 		if (health < 0f) 
 		{
@@ -689,7 +950,19 @@ public class character_behavior : MonoBehaviour {
 		
 		}
 	}
+	bool shootsOutside()
+	{
+		return (Mathf.Abs(aim.x-location.x)>Mathf.Abs(location.x-guard.x));
+	}
 
+	public void ResetControl()
+	{
 
-
+		charUp=false;
+		charRight = false;
+		charLeft= false;
+		charStrike = false;
+		charSkill = false;
+		charInteract = false;
+	}
 }

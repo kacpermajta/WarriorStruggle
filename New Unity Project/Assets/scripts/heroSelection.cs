@@ -4,26 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class heroSelection : MonoBehaviour {
-	public GameObject character1;
-	public GameObject character2;
-	public GameObject character3;
-	public GameObject character4;
-	public GameObject character5;
-	public GameObject character6;
-	public GameObject character7;
-	public GameObject character8;
-	public GameObject character9;
-	public GameObject character10;
-	public GameObject character11;
-	public GameObject character12;
-	public GameObject character13;
-	public GameObject character14;
-	public GameObject character15;
-	public GameObject character16;
-	public GameObject character17;
-	public GameObject character18;
-	public GameObject character19;
-	public GameObject character20;
+	public GameObject[] character;
+
 
 	public void mainMenu () {
 		SceneManager.LoadScene("menu");
@@ -31,118 +13,158 @@ public class heroSelection : MonoBehaviour {
 	}
 
 	public void hero1 () {
-		playerSettings.playerHero=character1;
+		playerSettings.heroNum = 1;
+		playerSettings.playerHero=character[1];
 		SceneManager.LoadScene("menu");
 
 	}
 	public void hero2 () {
-		playerSettings.playerHero=character2;
+		playerSettings.heroNum = 2;
+		playerSettings.playerHero=character[2];
 		SceneManager.LoadScene("menu");
 
 	}
 
 	public void hero3 () {
-		playerSettings.playerHero=character3;
+		playerSettings.heroNum = 3;
+		playerSettings.playerHero=character[3];
 		SceneManager.LoadScene("menu");
 
 	}
 
 	public void hero4 () {
-		playerSettings.playerHero=character4;
+		playerSettings.heroNum = 4;
+		playerSettings.playerHero=character[4];
 		SceneManager.LoadScene("menu");
 
 	}
 
 	public void hero5 () {
-		playerSettings.playerHero=character5;
+		playerSettings.heroNum = 5;
+		playerSettings.playerHero=character[5];
 		SceneManager.LoadScene("menu");
 
 	}
 
 	public void hero6 () {
-		playerSettings.playerHero=character6;
+		playerSettings.heroNum = 6;
+		playerSettings.playerHero=character[6];
 		SceneManager.LoadScene("menu");
 
 	}
 
 	public void hero7 () {
-		playerSettings.playerHero=character7;
+		playerSettings.heroNum = 7;
+		playerSettings.playerHero=character[7];
 		SceneManager.LoadScene("menu");
 
 	}
 
 	public void hero8 () {
-		playerSettings.playerHero=character8;
+		playerSettings.heroNum = 8;
+		playerSettings.playerHero=character[8];
 		SceneManager.LoadScene("menu");
 
 	}
 
 	public void hero9 () {
-		playerSettings.playerHero=character9;
+		playerSettings.heroNum = 9;
+		playerSettings.playerHero=character[9];
 		SceneManager.LoadScene("menu");
 
 	}
 
 	public void hero10 () {
-		playerSettings.playerHero=character10;
+		playerSettings.heroNum = 10;
+		playerSettings.playerHero=character[10];
 		SceneManager.LoadScene("menu");
 
 	}
 
 	public void hero11 () {
-		playerSettings.playerHero=character11;
+		playerSettings.heroNum = 11;
+		playerSettings.playerHero=character[11];
 		SceneManager.LoadScene("menu");
 
 	}
 	public void hero12 () {
-		playerSettings.playerHero=character12;
+		playerSettings.heroNum = 12;
+		playerSettings.playerHero=character[12];
 		SceneManager.LoadScene("menu");
 
 	}
 	public void hero13 () {
-		playerSettings.playerHero=character13;
+		playerSettings.heroNum = 13;
+		playerSettings.playerHero=character[13];
 		SceneManager.LoadScene("menu");
 
 	}
 
 	public void hero14 () {
-		playerSettings.playerHero=character14;
+		playerSettings.heroNum = 14;
+		playerSettings.playerHero=character[14];
 		SceneManager.LoadScene("menu");
 
 	}
 	public void hero15 () {
-		playerSettings.playerHero=character15;
+		playerSettings.heroNum = 15;
+		playerSettings.playerHero=character[15];
 		SceneManager.LoadScene("menu");
 
 	}
 
 
 	public void hero16 () {
-		playerSettings.playerHero=character16;
+		playerSettings.heroNum = 16;
+		playerSettings.playerHero=character[16];
 		SceneManager.LoadScene("menu");
 
 	}
 
 	public void hero17 () {
-		playerSettings.playerHero=character17;
+		playerSettings.heroNum = 17;
+		playerSettings.playerHero=character[17];
 		SceneManager.LoadScene("menu");
 
 	}
 
 	public void hero18 () {
-		playerSettings.playerHero=character18;
+		playerSettings.heroNum = 18;
+		playerSettings.playerHero=character[18];
 		SceneManager.LoadScene("menu");
 
 	}
 
 	public void hero19 () {
-		playerSettings.playerHero=character19;
+		playerSettings.heroNum = 19;
+		playerSettings.playerHero=character[19];
 		SceneManager.LoadScene("menu");
 
 	}
 
 	public void hero20 () {
-		playerSettings.playerHero=character20;
+		playerSettings.heroNum = 20;
+		playerSettings.playerHero=character[20];
+		SceneManager.LoadScene("menu");
+
+	}
+
+	public void hero21 () {
+		playerSettings.heroNum = 21;
+		playerSettings.playerHero=character[21];
+		SceneManager.LoadScene("menu");
+
+	}
+	public void hero22 () {
+		playerSettings.heroNum = 22;
+		playerSettings.playerHero=character[22];
+		SceneManager.LoadScene("menu");
+
+	}
+
+	public void hero23 () {
+		playerSettings.heroNum = 23;
+		playerSettings.playerHero=character[23];
 		SceneManager.LoadScene("menu");
 
 	}
@@ -151,6 +173,7 @@ public class heroSelection : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		playerSettings.character = character;
 		
 	}
 	

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class random_spawn : MonoBehaviour {
 	public int[] counter;
+	public int cooldown;
 	public float xmin, xmax, ymin, ymax;
 	public GameObject[] entity;
 	public GameObject newCharacter;
@@ -11,10 +12,14 @@ public class random_spawn : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-//initilize when first agent spawn
-		for (int i = 0; i < 7; i++) 
+		if (cooldown == 0) 
 		{
-			counter [i] = (int)(Random.value * 2000);
+			cooldown = 600;
+		}
+//initilize when first agent spawn
+		for (int i = 0; i < counter.Length; i++) 
+		{
+			counter [i] = (int)(Random.value * (3*cooldown));
 		}
 	}
 	
@@ -22,7 +27,7 @@ public class random_spawn : MonoBehaviour {
 	void Update () {
 
 //loop through spawned prefabs
-		for(int i=0; i<7;i++){
+		for(int i=0; i<counter.Length;i++){
 		counter[i]--;
 
 //time to spawn a bot
@@ -34,7 +39,7 @@ public class random_spawn : MonoBehaviour {
 				newCharacter.GetComponent< character_behavior > ().mapPlane = location.z;
 
 //set new spawn time
-				counter[i] = 600+(int)(Random.value * 1400);
+				counter[i] = cooldown+(int)(Random.value * (2*cooldown));
 			}
 		}
 

@@ -125,6 +125,8 @@ MonoBehaviour:
   owner: {fileID: 0}
   victim: {fileID: 0}
   range: 0.7
+  offhand: 0
+  positioning: {x: 0.5, y: 0, z: 0}
 --- !u!136 &136653753178599552
 CapsuleCollider:
   m_ObjectHideFlags: 1

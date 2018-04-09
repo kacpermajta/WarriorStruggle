@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4401924326045436}
   - component: {fileID: 33383815300839500}
   - component: {fileID: 23318977993016604}
+  - component: {fileID: 114636729023587910}
   m_Layer: 0
   m_Name: crossbowModel
   m_TagString: Untagged
@@ -79,3 +80,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1247081869077698}
   m_Mesh: {fileID: 4300000, guid: 5903ab7298df1824fb890b5c6d6b4c10, type: 3}
+--- !u!114 &114636729023587910
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1247081869077698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97cadbe3f799fdb45a6624c0c67df4df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  owner: {fileID: 0}
+  victim: {fileID: 0}
+  range: 30
+  offhand: 0
+  positioning: {x: 0.5, y: 0, z: 0}

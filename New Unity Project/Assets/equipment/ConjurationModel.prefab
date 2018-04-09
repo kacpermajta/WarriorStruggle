@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4213599918947246}
+  - component: {fileID: 114146914620909150}
   m_Layer: 2
   m_Name: ConjurationModel
   m_TagString: Untagged
@@ -69,6 +70,23 @@ Transform:
   m_Father: {fileID: 4213599918947246}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114146914620909150
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1114254516511666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97cadbe3f799fdb45a6624c0c67df4df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  owner: {fileID: 0}
+  victim: {fileID: 0}
+  range: 30
+  offhand: 0
+  positioning: {x: 0.5, y: 0, z: 0}
 --- !u!212 &212579247118211220
 SpriteRenderer:
   m_ObjectHideFlags: 1

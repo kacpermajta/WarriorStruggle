@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4586002271891424}
   - component: {fileID: 33472446766862050}
   - component: {fileID: 23133647443376946}
+  - component: {fileID: 114442494686299280}
   m_Layer: 0
   m_Name: pistolModel
   m_TagString: Untagged
@@ -79,3 +80,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1993319559632634}
   m_Mesh: {fileID: 4300000, guid: fc35e0c90a3853b49931071eb59deb49, type: 3}
+--- !u!114 &114442494686299280
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1993319559632634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97cadbe3f799fdb45a6624c0c67df4df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  owner: {fileID: 0}
+  victim: {fileID: 0}
+  range: 30
+  offhand: 0
+  positioning: {x: 0.5, y: 0, z: 0}

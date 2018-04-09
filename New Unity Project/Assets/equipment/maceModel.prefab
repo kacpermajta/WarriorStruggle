@@ -108,3 +108,5 @@ MonoBehaviour:
   owner: {fileID: 0}
   victim: {fileID: 0}
   range: 1
+  offhand: 0
+  positioning: {x: 0.5, y: 0, z: 0}
