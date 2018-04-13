@@ -41,6 +41,18 @@ public class buttonControl : MonoBehaviour {
 		SceneManager.LoadScene("heroes");
 
 	}
+	public void cosmetics () {
+		SceneManager.LoadScene("cosmetics");
+
+	}
+	public void headCosmetics () {
+		SceneManager.LoadScene("cosmeHead");
+
+	}
+	public void bodyCosmetics () {
+		SceneManager.LoadScene("cosmeBody");
+
+	}
 	public void controls () {
 		SceneManager.LoadScene("controls");
 
@@ -51,15 +63,15 @@ public class buttonControl : MonoBehaviour {
 	}
 
 	public void levelOne () {
-		SceneManager.LoadScene("sceneTwo");
+		SceneManager.LoadScene("sceneSix");
 
 	}
 	public void levelTwo () {
-		SceneManager.LoadScene("sceneThree");
+		SceneManager.LoadScene("sceneTwo");
 
 	}
 	public void levelThree () {
-		SceneManager.LoadScene("sceneOne");
+		SceneManager.LoadScene("sceneThree");
 
 	}
 	public void levelFour() {
@@ -71,7 +83,7 @@ public class buttonControl : MonoBehaviour {
 
 	}
 	public void levelSix() {
-		SceneManager.LoadScene("sceneSix");
+		SceneManager.LoadScene("sceneOne");
 
 	}
 	public void cheatmap() {
@@ -108,6 +120,8 @@ public class buttonControl : MonoBehaviour {
 
 	}
 	public void multiServer () {
+		playerSettings.serverName = GameObject.Find ("ServerNameInput").GetComponent<InputField> ().text;
+
 		playerSettings.playerName = GameObject.Find ("NameInput").GetComponent<InputField> ().text;
 //		Debug.Log (playerSettings.playerName);
 		playerSettings.isServer = true;

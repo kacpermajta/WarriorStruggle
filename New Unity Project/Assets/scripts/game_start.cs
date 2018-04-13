@@ -11,7 +11,7 @@ public class game_start : MonoBehaviour {
 //use chosen player hero unless set otherwise
 		if (character == null) 
 		{
-			character = playerSettings.playerHero;
+			character = playerSettings.character[playerSettings.heroNum];
 		}
 //spawn character
 		Vector3 location= gameObject.GetComponent<Transform>().position;

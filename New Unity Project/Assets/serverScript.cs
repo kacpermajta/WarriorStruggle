@@ -22,17 +22,23 @@ public class ServerAgent
 public class serverScript : MonoBehaviour {
 	private const int maxPlayers=10;
 	private int port= 5701;//5701
-	private int hostID;
-	private int reliableChannel;
+	private static int hostID;
+	private static int reliableChannel;
 	private int unreliableChannel;
 	private bool isStarted;
-	private byte error;
+	private static byte error;
 	public GameObject playerPrefab;
-	float updateInterval=0.05f;
+	private float xmin = -30f;
+	private float xmax = 20f;
+	private float ymin = -15f;
+	private float ymax = 15f;
 
+	float updateInterval=0.1f;
+	private bool updateRequred;
+	private string updateMsg;
 	public List<GameObject> characters = new List<GameObject>();
 	public List<GameObject> missiles = new List<GameObject>();
-	public Dictionary<int, ServerClient> clients = new Dictionary<int, ServerClient> ();
+	public static Dictionary<int, ServerClient> clients = new Dictionary<int, ServerClient> ();
 	// Use this for initialization
 	void Start () {
 		NetworkTransport.Init();
@@ -56,11 +62,34 @@ public class serverScript : MonoBehaviour {
 		int bufferSize = 1024;
 		int dataSize;
 		byte error;
+		updateRequred = false;
+		updateMsg = "LOC";
+		foreach (KeyValuePair<int, ServerClient> sc in clients) 
+		{
+			if (sc.Value.agent.avatar != null) {
+				if (sc.Value.agent.avatar.GetComponent<character_behavior> () == null) {
+					Send ("KILL|" + sc.Key, reliableChannel, clients);
 
-		foreach (KeyValuePair<int, ServerClient> sc in clients)
-			if(sc.Value.agent.avatar!=null)
-				distributeState(sc.Value.agent , sc.Key);
+					clients.Remove (sc.Key);
 
+				} else
+					checkState (sc.Value.agent, sc.Key);
+			}
+		}
+
+		if (updateRequred) 
+		{
+			foreach (KeyValuePair<int, ServerClient> sc in clients) 
+			{
+				if (sc.Value.agent.avatar != null) {
+
+					distributeState (sc.Value.agent, sc.Key);
+				}
+			}
+			Send (updateMsg, unreliableChannel, clients);
+//			Debug.Log (updateMsg);
+		}
+		
 		NetworkEventType recData = NetworkTransport.Receive(out recHostId, out connectionId, out channelId, recBuffer, bufferSize, out dataSize, out error);
 		switch (recData)
 		{
@@ -133,6 +162,40 @@ public class serverScript : MonoBehaviour {
 		
 		msg = msg.Trim ('|');
 		Send (msg, reliableChannel, cnnId);
+		updateRequred = false;
+		updateMsg = "LOC";
+
+		foreach (KeyValuePair<int, ServerClient> sc in clients) 
+		{
+			if (sc.Value.agent.avatar != null) 
+			{
+				if (sc.Value.agent.avatar.GetComponent<character_behavior> () == null) {
+					Send ("KILL|" + sc.Key, reliableChannel, clients);
+
+					clients.Remove (sc.Key);
+
+				}
+				//distributeState (sc.Value.agent, sc.Key);
+				else {
+					
+					sc.Value.agent.storedX = sc.Value.agent.avatar.GetComponent<character_behavior> ().lokacja.x;
+					sc.Value.agent.storedY = sc.Value.agent.avatar.GetComponent<character_behavior> ().lokacja.y;
+
+
+					sc.Value.agent.sAimX = sc.Value.agent.avatar.GetComponent<character_behavior> ().aim.x;
+					sc.Value.agent.sAimY = sc.Value.agent.avatar.GetComponent<character_behavior> ().aim.y;
+
+					updateMsg += "|" + sc.Key + "%" + sc.Value.agent.storedX.ToString ("F2") + "%" + sc.Value.agent.storedY.ToString ("F2") + "%" +
+					sc.Value.agent.sAimX.ToString ("F2") + "%" + sc.Value.agent.sAimY.ToString ("F2");
+					updateRequred = true;
+					
+
+//					Send ("LOC|" + sc.Key + "|" + sc.Value.agent.storedX.ToString ("F2") + "%" + sc.Value.agent.storedY.ToString ("F2"), reliableChannel, cnnId);
+//					Send ("AIC|" + sc.Key + "|" + sc.Value.agent.sAimX.ToString ("F2") + "%" + sc.Value.agent.sAimY.ToString ("F2"), reliableChannel, cnnId);
+				}
+			}
+		}
+		Send (updateMsg, unreliableChannel, clients);
 
 	}
 
@@ -167,7 +230,12 @@ public class serverScript : MonoBehaviour {
 		clients [cnnID].agent.bodyNum = int.Parse (bodyName);
 
 		playerPrefab = playerSettings.character[clients [cnnID].agent.heroNum];//clients [cnnID].agent.heroNum];
-		GameObject go = Instantiate (playerPrefab)  as GameObject;
+
+		Vector3 location=new Vector3(xmin + (Random.value * (xmax-xmin)), ymin + (Random.value * (ymax-ymin)), 0f);
+		GameObject go= Instantiate(playerPrefab, location, Quaternion.identity);
+		//GameObject go = Instantiate (playerPrefab)  as GameObject;
+
+
 		Destroy (go.transform.Find ("camera").gameObject);
 		Debug.Log ("powinno");
 		clients [cnnID].agent.avatar = go;
@@ -187,9 +255,9 @@ public class serverScript : MonoBehaviour {
 		Send (message, channelID, c);
 
 	}
-	private void Send (string message, int channelID, Dictionary<int,ServerClient> ce)
+	private static void Send (string message, int channelID, Dictionary<int,ServerClient> ce)
 	{
-		Debug.Log ("sending: " + message);
+		//Debug.Log ("sending: " + message);
 		byte[] msg = Encoding.Unicode.GetBytes (message);
 		foreach (KeyValuePair<int, ServerClient> sc in ce)
 			
@@ -199,10 +267,22 @@ public class serverScript : MonoBehaviour {
 
 
 		}
-		foreach (KeyValuePair<int, ServerClient> sc in clients) 
+
+	}
+	private static void Send (string message, int channelID, Dictionary<int,ServerClient> ce, int exceptID)
+	{
+//		Debug.Log ("sending: " + message);
+		byte[] msg = Encoding.Unicode.GetBytes (message);
+		foreach (KeyValuePair<int, ServerClient> sc in ce)
+
+			//foreach (ServerClient sc in c) 
 		{
-			Debug.Log ("serial: "+sc.Value.playerName + ", " + sc.Key);
+			if (sc.Value.connectionId!=exceptID)
+			NetworkTransport.Send(hostID,sc.Value.connectionId,channelID,msg,message.Length*sizeof(char), out error);
+
+
 		}
+
 	}
 	private void ControlPlayer(int cnnID, string input)
 	{
@@ -211,17 +291,22 @@ public class serverScript : MonoBehaviour {
 //		charLeft= 4;
 //		charStrike = 8;
 //		charSkill = 16;
+		int attacks=0;
+
 		int numInp= int.Parse(input);
 		clients [cnnID].agent.avatar.GetComponent<character_behavior> ().ResetControl ();
+
 		if (numInp >= 16) 
 		{
 			clients [cnnID].agent.avatar.GetComponent<character_behavior> ().charSkill = true;
 			numInp -= 16;
+			attacks+=2;
 		}
 		if (numInp >= 8) 
 		{
 			clients [cnnID].agent.avatar.GetComponent<character_behavior> ().charStrike = true;
 			numInp -= 8;
+			attacks++;
 		}
 		if (numInp >= 4) 
 		{
@@ -238,6 +323,9 @@ public class serverScript : MonoBehaviour {
 			clients [cnnID].agent.avatar.GetComponent<character_behavior> ().charUp = true;
 			numInp -= 1;
 		}
+
+		Send ("ATT|" + cnnID + "|" + attacks, reliableChannel, clients, cnnID);
+
 	}
 
 	private void SetAimPlayer(int cnnID, string input)
@@ -255,16 +343,68 @@ public class serverScript : MonoBehaviour {
 		clients [cnnID].agent.avatar.GetComponent<character_behavior> ().aim.y = newY;
 
 	}
+	private void checkState(ServerAgent agent, int cnnID)
+	{
+		if (updateRequred || Mathf.Abs (agent.storedX - agent.avatar.GetComponent<character_behavior> ().lokacja.x) > updateInterval || Mathf.Abs (agent.storedY - agent.avatar.GetComponent<character_behavior> ().lokacja.y) > updateInterval
+		    || Mathf.Abs (agent.sAimX - agent.avatar.GetComponent<character_behavior> ().aim.x) > updateInterval || Mathf.Abs (agent.sAimY - agent.avatar.GetComponent<character_behavior> ().aim.y) > updateInterval) 
+		{
+			updateRequred = true;
+		}
+	}
 	private void distributeState(ServerAgent agent, int cnnID)
 	{
-		if (Mathf.Abs (agent.storedX - agent.avatar.GetComponent<character_behavior> ().lokacja.x) > updateInterval || Mathf.Abs (agent.storedY - agent.avatar.GetComponent<character_behavior> ().lokacja.y) > updateInterval) 
+		if (updateRequred) 
+
 		{
 			agent.storedX = agent.avatar.GetComponent<character_behavior> ().lokacja.x;
 			agent.storedY = agent.avatar.GetComponent<character_behavior> ().lokacja.y;
 
-			Send("LOC|"+ cnnID+"|"  + agent.storedX.ToString("F2")+ "%"+agent.storedY.ToString("F2"),unreliableChannel,clients );
+			//Send("LOC|"+ cnnID+"|"  + agent.storedX.ToString("F2")+ "%"+agent.storedY.ToString("F2"),unreliableChannel,clients );
+//		}
+//		if (Mathf.Abs (agent.sAimX - agent.avatar.GetComponent<character_behavior> ().aim.x) > updateInterval || Mathf.Abs (agent.sAimY - agent.avatar.GetComponent<character_behavior> ().aim.y) > updateInterval) 
+//		{
+			agent.sAimX = agent.avatar.GetComponent<character_behavior> ().aim.x;
+			agent.sAimY = agent.avatar.GetComponent<character_behavior> ().aim.y;
+
+			updateMsg += "|" + cnnID + "%" + agent.storedX.ToString ("F2") + "%" + agent.storedY.ToString ("F2") + "%" +
+			agent.sAimX.ToString ("F2") + "%" + agent.sAimY.ToString ("F2");
+			//Send("AIC|"+ cnnID+"|"  + agent.sAimX.ToString("F2")+ "%"+agent.sAimY.ToString("F2"),unreliableChannel,clients );
+			//updateRequred=true;
 		}
 
+	}
+	public static void sendHp(float health, GameObject avatar)
+	{
+		foreach (KeyValuePair<int, ServerClient> sc in serverScript.clients) 
+		{
+			if (sc.Value.agent.avatar == avatar) {
+
+				Send ("HP|" + sc.Key+ "|"+health, reliableChannel, clients);
+				return;
+			}
+		}
+	}
+
+	public static void SendMissile(GameObject missile, Vector3 location, Quaternion rotation)
+	{
+		int prNum;
+		Vector3 eRotation = rotation.eulerAngles;
+
+		for (int i = 0;  i < 14; i++) 
+		{
+			Debug.Log(playerSettings.missiles [i].name+ "(Clone) ; "+missile.name );
+			if ((playerSettings
+				.missiles 
+				[i]
+				.name 
+				+ "(Clone)").Equals( missile.name)) 
+			{
+				prNum = i;
+				Send ("MI|" + prNum + "|" + location.x + "|" + location.y +"|" + location.z + "|" + eRotation.z+"|" + eRotation.y, reliableChannel, clients);
+				Debug.Log ("wyslano");
+				return;
+			}
+		}
 	}
 
 

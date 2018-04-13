@@ -560,6 +560,11 @@ Prefab:
       propertyPath: m_Name
       value: sceneSlope (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 114800528041154338, guid: 0c7c7ca69faa50f41b43ed791d0d1dcf,
+        type: 2}
+      propertyPath: groundType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c7c7ca69faa50f41b43ed791d0d1dcf, type: 2}
   m_IsPrefabParent: 0
@@ -795,6 +800,11 @@ Prefab:
       propertyPath: m_Name
       value: sceneRamp (23)
       objectReference: {fileID: 0}
+    - target: {fileID: 114373620468066236, guid: 99ed28edf776d8941ba0fbf29cb57cf7,
+        type: 2}
+      propertyPath: groundType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99ed28edf776d8941ba0fbf29cb57cf7, type: 2}
   m_IsPrefabParent: 0
@@ -840,6 +850,11 @@ Prefab:
     - target: {fileID: 1935189872658696, guid: 99ed28edf776d8941ba0fbf29cb57cf7, type: 2}
       propertyPath: m_Name
       value: sceneRamp (25)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114373620468066236, guid: 99ed28edf776d8941ba0fbf29cb57cf7,
+        type: 2}
+      propertyPath: groundType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99ed28edf776d8941ba0fbf29cb57cf7, type: 2}
@@ -1231,6 +1246,11 @@ Prefab:
       propertyPath: m_Name
       value: sceneRamp (26)
       objectReference: {fileID: 0}
+    - target: {fileID: 114373620468066236, guid: 99ed28edf776d8941ba0fbf29cb57cf7,
+        type: 2}
+      propertyPath: groundType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99ed28edf776d8941ba0fbf29cb57cf7, type: 2}
   m_IsPrefabParent: 0
@@ -1471,6 +1491,11 @@ Prefab:
       propertyPath: m_Name
       value: sceneSlope (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 114800528041154338, guid: 0c7c7ca69faa50f41b43ed791d0d1dcf,
+        type: 2}
+      propertyPath: groundType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c7c7ca69faa50f41b43ed791d0d1dcf, type: 2}
   m_IsPrefabParent: 0
@@ -1516,6 +1541,11 @@ Prefab:
     - target: {fileID: 1935189872658696, guid: 99ed28edf776d8941ba0fbf29cb57cf7, type: 2}
       propertyPath: m_Name
       value: sceneRamp (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114373620468066236, guid: 99ed28edf776d8941ba0fbf29cb57cf7,
+        type: 2}
+      propertyPath: groundType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99ed28edf776d8941ba0fbf29cb57cf7, type: 2}
@@ -1654,6 +1684,11 @@ Prefab:
     - target: {fileID: 1935189872658696, guid: 99ed28edf776d8941ba0fbf29cb57cf7, type: 2}
       propertyPath: m_Name
       value: sceneRamp (21)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114373620468066236, guid: 99ed28edf776d8941ba0fbf29cb57cf7,
+        type: 2}
+      propertyPath: groundType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99ed28edf776d8941ba0fbf29cb57cf7, type: 2}
@@ -2960,6 +2995,11 @@ Prefab:
       propertyPath: m_Name
       value: sceneRamp (27)
       objectReference: {fileID: 0}
+    - target: {fileID: 114373620468066236, guid: 99ed28edf776d8941ba0fbf29cb57cf7,
+        type: 2}
+      propertyPath: groundType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99ed28edf776d8941ba0fbf29cb57cf7, type: 2}
   m_IsPrefabParent: 0
@@ -3189,6 +3229,11 @@ Prefab:
     - target: {fileID: 1935189872658696, guid: 99ed28edf776d8941ba0fbf29cb57cf7, type: 2}
       propertyPath: m_Name
       value: sceneRamp (29)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114373620468066236, guid: 99ed28edf776d8941ba0fbf29cb57cf7,
+        type: 2}
+      propertyPath: groundType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99ed28edf776d8941ba0fbf29cb57cf7, type: 2}
@@ -3564,6 +3609,11 @@ Prefab:
       propertyPath: m_Name
       value: sceneSlope (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 114800528041154338, guid: 0c7c7ca69faa50f41b43ed791d0d1dcf,
+        type: 2}
+      propertyPath: groundType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c7c7ca69faa50f41b43ed791d0d1dcf, type: 2}
   m_IsPrefabParent: 0
@@ -3938,6 +3988,11 @@ Prefab:
       propertyPath: m_Name
       value: sceneRamp (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 114373620468066236, guid: 99ed28edf776d8941ba0fbf29cb57cf7,
+        type: 2}
+      propertyPath: groundType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99ed28edf776d8941ba0fbf29cb57cf7, type: 2}
   m_IsPrefabParent: 0
@@ -4260,6 +4315,11 @@ Prefab:
       propertyPath: m_Name
       value: sceneSlopeDown (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 114805701154884282, guid: a290eb4e34bd2974580aa95af61f16c0,
+        type: 2}
+      propertyPath: groundType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a290eb4e34bd2974580aa95af61f16c0, type: 2}
   m_IsPrefabParent: 0
@@ -4578,6 +4638,11 @@ Prefab:
       propertyPath: m_Name
       value: sceneSlopeDown (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 114805701154884282, guid: a290eb4e34bd2974580aa95af61f16c0,
+        type: 2}
+      propertyPath: groundType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a290eb4e34bd2974580aa95af61f16c0, type: 2}
   m_IsPrefabParent: 0
@@ -4715,6 +4780,11 @@ Prefab:
     - target: {fileID: 1079359875069416, guid: 0c7c7ca69faa50f41b43ed791d0d1dcf, type: 2}
       propertyPath: m_Name
       value: sceneSlope (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114800528041154338, guid: 0c7c7ca69faa50f41b43ed791d0d1dcf,
+        type: 2}
+      propertyPath: groundType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c7c7ca69faa50f41b43ed791d0d1dcf, type: 2}
@@ -4901,6 +4971,11 @@ Prefab:
       propertyPath: m_Name
       value: sceneRamp (30)
       objectReference: {fileID: 0}
+    - target: {fileID: 114373620468066236, guid: 99ed28edf776d8941ba0fbf29cb57cf7,
+        type: 2}
+      propertyPath: groundType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99ed28edf776d8941ba0fbf29cb57cf7, type: 2}
   m_IsPrefabParent: 0
@@ -4946,6 +5021,11 @@ Prefab:
     - target: {fileID: 1079359875069416, guid: 0c7c7ca69faa50f41b43ed791d0d1dcf, type: 2}
       propertyPath: m_Name
       value: sceneSlope (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114800528041154338, guid: 0c7c7ca69faa50f41b43ed791d0d1dcf,
+        type: 2}
+      propertyPath: groundType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c7c7ca69faa50f41b43ed791d0d1dcf, type: 2}
@@ -5043,6 +5123,11 @@ Prefab:
     - target: {fileID: 1935189872658696, guid: 99ed28edf776d8941ba0fbf29cb57cf7, type: 2}
       propertyPath: m_Name
       value: sceneRamp (28)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114373620468066236, guid: 99ed28edf776d8941ba0fbf29cb57cf7,
+        type: 2}
+      propertyPath: groundType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99ed28edf776d8941ba0fbf29cb57cf7, type: 2}
@@ -5454,6 +5539,11 @@ Prefab:
     - target: {fileID: 1935189872658696, guid: 99ed28edf776d8941ba0fbf29cb57cf7, type: 2}
       propertyPath: m_Name
       value: sceneRamp (24)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114373620468066236, guid: 99ed28edf776d8941ba0fbf29cb57cf7,
+        type: 2}
+      propertyPath: groundType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99ed28edf776d8941ba0fbf29cb57cf7, type: 2}

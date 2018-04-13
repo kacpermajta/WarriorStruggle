@@ -10,7 +10,11 @@ public class shot : MonoBehaviour {
 	public float damage;
 	// Use this for initialization
 	void Start () {
-
+		if (playerSettings.isServer && airborne) 
+		{
+			Debug.Log ("wyslij");
+			serverScript.SendMissile (gameObject, gameObject.transform.position, gameObject.transform.rotation);
+		}
 	}
 	
 	void Update () {
@@ -51,7 +55,10 @@ public class shot : MonoBehaviour {
 				other.GetComponent< enviromentDamage > ().hit (damage, transform.eulerAngles);
 
 			}
-
+			if (playerSettings.isClient||playerSettings.isServer) 
+			{
+				Destroy (gameObject);
+			}
 			if (physical) 
 			{
 				Destroy (gameObject.GetComponent<Collider> ());

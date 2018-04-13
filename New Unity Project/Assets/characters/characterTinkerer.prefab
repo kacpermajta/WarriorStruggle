@@ -305,6 +305,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 1
   exhaust: 35
   offexhaust: 0
   speed: 0

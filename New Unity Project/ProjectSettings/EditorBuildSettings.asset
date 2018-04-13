@@ -13,11 +13,11 @@ EditorBuildSettings:
     path: Assets/scenes/levels.unity
   - enabled: 1
     path: Assets/scenes/controls.unity
-  - enabled: 0
+  - enabled: 1
     path: Assets/scenes/sceneOne.unity
-  - enabled: 0
+  - enabled: 1
     path: Assets/scenes/sceneTwo.unity
-  - enabled: 0
+  - enabled: 1
     path: Assets/scenes/sceneThree.unity
   - enabled: 0
     path: Assets/scenes/zyczenia.unity
@@ -25,25 +25,25 @@ EditorBuildSettings:
     path: Assets/scenes/sceneTwov2.unity
   - enabled: 0
     path: Assets/scenes/sceneThreev2.unity
-  - enabled: 0
+  - enabled: 1
     path: Assets/scenes/sceneFour.unity
-  - enabled: 0
+  - enabled: 1
     path: Assets/scenes/sceneFive.unity
-  - enabled: 0
+  - enabled: 1
     path: Assets/scenes/sceneSix.unity
   - enabled: 1
     path: Assets/scenes/heroes.unity
-  - enabled: 0
+  - enabled: 1
     path: Assets/scenes/sceneSeven.unity
-  - enabled: 0
+  - enabled: 1
     path: Assets/scenes/deathroom.unity
-  - enabled: 0
+  - enabled: 1
     path: Assets/scenes/sceneEight.unity
-  - enabled: 0
+  - enabled: 1
     path: Assets/scenes/tutorial.unity
   - enabled: 0
     path: Assets/scenes/cheatmap.unity
-  - enabled: 0
+  - enabled: 1
     path: Assets/scenes/sceneNein.unity
   - enabled: 1
     path: Assets/scenes/multiplayer.unity
@@ -51,3 +51,9 @@ EditorBuildSettings:
     path: Assets/scenes/multiServer.unity
   - enabled: 1
     path: Assets/scenes/multiClient.unity
+  - enabled: 1
+    path: Assets/scenes/cosmetics.unity
+  - enabled: 1
+    path: Assets/scenes/cosmeHead.unity
+  - enabled: 1
+    path: Assets/scenes/cosmeBody.unity

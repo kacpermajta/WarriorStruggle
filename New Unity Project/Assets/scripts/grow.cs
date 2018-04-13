@@ -8,6 +8,11 @@ public class grow : MonoBehaviour {
 	public float expanse;
 	// Use this for initialization
 	void Start () {
+		if (playerSettings.isServer ) 
+		{
+			Debug.Log ("wyslij");
+			serverScript.SendMissile (gameObject, gameObject.transform.position, gameObject.transform.rotation);
+		}
 		
 	}
 	

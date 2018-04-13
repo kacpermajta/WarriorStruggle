@@ -175,10 +175,11 @@ public class botControl : MonoBehaviour {
 					//victim too close
 					if (Vector3.Distance (child.GetComponent< character_behavior > ().aim, child.GetComponent< character_behavior > ().guard) > range)
 					{
-
-						child.GetComponent< character_behavior > ().charRight = temporaryBool;
-						child.GetComponent< character_behavior > ().charLeft = !temporaryBool;
-
+						if (!child.GetComponent< character_behavior > ().isGuardian) 
+						{
+							child.GetComponent< character_behavior > ().charRight = temporaryBool;
+							child.GetComponent< character_behavior > ().charLeft = !temporaryBool;
+						}
 					} else 
 						//victim too far
 					{			

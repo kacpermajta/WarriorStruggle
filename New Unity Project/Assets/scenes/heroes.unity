@@ -623,6 +623,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 0
   offexhaust: 0
   speed: 0
@@ -773,6 +774,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 0
   offexhaust: 0
   speed: 0
@@ -923,6 +925,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 80
   offexhaust: 0
   speed: 0
@@ -1296,6 +1299,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 15
   offexhaust: 0
   speed: 0
@@ -1715,6 +1719,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 1
   exhaust: 35
   offexhaust: 0
   speed: 0
@@ -1947,6 +1952,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 0
   offexhaust: 0
   speed: 0
@@ -2396,6 +2402,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 0
   offexhaust: 0
   speed: 0
@@ -3174,6 +3181,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 150
   offexhaust: 0
   speed: 0
@@ -4736,6 +4744,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 15
   offexhaust: 0
   speed: 0
@@ -5341,6 +5350,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 120
   offexhaust: 0
   speed: 0
@@ -5492,6 +5502,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 15
   offexhaust: 0
   speed: 0
@@ -6054,6 +6065,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 0
   offexhaust: 0
   speed: 0
@@ -6326,6 +6338,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 0
   offexhaust: 0
   speed: 0
@@ -6673,6 +6686,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 0
   offexhaust: 0
   speed: 0
@@ -8544,6 +8558,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 80
   offexhaust: 0
   speed: 0
@@ -8914,6 +8929,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 80
   offexhaust: 0
   speed: 0
@@ -9333,6 +9349,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 100
   offexhaust: 0
   speed: 0
@@ -9895,6 +9912,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 0
   offexhaust: 0
   speed: 0
@@ -10625,6 +10643,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 15
   offexhaust: 0
   speed: 0
@@ -10847,6 +10866,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 15
   offexhaust: 0
   speed: 0
@@ -11506,6 +11526,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 15
   offexhaust: 0
   speed: 0
@@ -11800,6 +11821,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 100
   offexhaust: 140
   speed: 0
@@ -12229,6 +12251,7 @@ MonoBehaviour:
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 0
   offexhaust: 0
   speed: 0

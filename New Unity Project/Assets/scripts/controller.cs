@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using UnityEngine.Networking;
 
 public class controller : MonoBehaviour {
 	
@@ -35,12 +36,15 @@ public class controller : MonoBehaviour {
 
 
        
-        if (Input.GetKeyDown(KeyCode.Escape))
+		if (Input.GetKeyDown(KeyCode.Escape))
         {
 			SceneManager.LoadScene("menu");
+			if (playerSettings.isClient || playerSettings.isServer)
+				NetworkTransport.Shutdown ();
+			//	Network.Disconnect();
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
+		if (Input.GetKeyDown(KeyCode.Return)&&!playerSettings.isClient)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }

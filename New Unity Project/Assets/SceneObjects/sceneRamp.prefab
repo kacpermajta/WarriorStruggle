@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23826317659618282}
   - component: {fileID: 54449733322685606}
   - component: {fileID: 65185260993465692}
+  - component: {fileID: 114373620468066236}
   m_Layer: 0
   m_Name: sceneRamp
   m_TagString: Untagged
@@ -108,3 +109,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 8.898449, y: 1, z: 1}
   m_Center: {x: -0.00000047683716, y: 0, z: 0}
+--- !u!114 &114373620468066236
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1935189872658696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c966eda4c034b804688397892a5ff889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundType: 0
+  altMesh:
+  - {fileID: 4300000, guid: 329f4adbfd7d1a14dada21f4c1ad41dc, type: 3}
+  plant: {fileID: 100002, guid: d4de46cf4cca76b439cd5e45390fe8b4, type: 3}
+  tileLocation: {x: 0, y: 0, z: 0}

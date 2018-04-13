@@ -35,7 +35,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1917288464813962}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.21, y: -39.05, z: 200}
+  m_LocalPosition: {x: 0.58977985, y: -13.902562, z: 200}
   m_LocalScale: {x: 15.785712, y: 34.145264, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character:
-  - {fileID: 0}
+  - {fileID: 1664382478841734, guid: b2d5d4a69722a1b4a99b660297b81b9d, type: 2}
   - {fileID: 1198772908301032, guid: c8b1b431103da84438dbfcb50e8b41b4, type: 2}
   - {fileID: 1327302460999434, guid: ca19c35b21e069d4eb2f7cd486cc0402, type: 2}
   - {fileID: 1377291039738308, guid: 6f96f94b1c0ce864caa1e8a6dfcff5cb, type: 2}
@@ -76,7 +76,39 @@ MonoBehaviour:
   - {fileID: 1607125488034212, guid: 2f2e3fd22ede8c043965a7dafdecba37, type: 2}
   - {fileID: 1251760491036480, guid: f6c699efa07b8a64d80f3b3d0b84e543, type: 2}
   - {fileID: 1620539002354196, guid: a77f87ee8b9e46a49924bfec5feaea02, type: 2}
-  - {fileID: 0}
+  - {fileID: 1554643262955912, guid: a19c9db1342f679479f73dd0c99af7ec, type: 2}
+  missile:
+  - {fileID: 1592660338475218, guid: dbd3cb126bc05f340956159168c7b68c, type: 2}
+  - {fileID: 1865606325121920, guid: da62e1866c7dc7141a8514a05cbfd27d, type: 2}
+  - {fileID: 1023726671492952, guid: 68de288c3cdf87341850a1f14f28a722, type: 2}
+  - {fileID: 1621408470751970, guid: 1a112bb529f0f2b4b9aa1d0d39cfe96f, type: 2}
+  - {fileID: 1565612498717370, guid: e7fe79fbccc963c429515ba6f2c1a3cf, type: 2}
+  - {fileID: 1500695930903484, guid: 1f05c53a53441b549afbe678501774a7, type: 2}
+  - {fileID: 1876106895197478, guid: 08aa893e207e17d49856cab8e6c6582e, type: 2}
+  - {fileID: 1770521265073558, guid: 0cd16bd40691e6a4688f0709699a8ba9, type: 2}
+  - {fileID: 1644552749561332, guid: 2a8b3bfb42fa22a468a0d85cd6097fe6, type: 2}
+  - {fileID: 1288929279340226, guid: 6f6bb57ef6d505b4cb4644ee446d3857, type: 2}
+  - {fileID: 1466037035208344, guid: a879e972e7e60a54bb4fd3c23eb6545e, type: 2}
+  - {fileID: 1023216132632004, guid: 3a05606b7f59ed449ba960e82618aa1a, type: 2}
+  - {fileID: 1448266996844390, guid: 1bd0ad030ac49314095f35faf21df839, type: 2}
+  - {fileID: 1450337125244290, guid: 8a5b6e228a5b83e4cbe7b3ae83815085, type: 2}
+  headSkin:
+  - {fileID: 4300000, guid: 7fc8a8677e5419242b8654371286260d, type: 3}
+  - {fileID: 4300000, guid: b7b934860a11ccd44a494dff8afc3362, type: 3}
+  - {fileID: 4300000, guid: 65f6b59ec23d57f4890727694d53e5f9, type: 3}
+  - {fileID: 4300000, guid: 1c4ae2b876bc2114fa603d55181b701c, type: 3}
+  - {fileID: 4300000, guid: c4d2bfe76d6412849adb80e7a0ddaed4, type: 3}
+  - {fileID: 4300000, guid: a2f834937061e3a4b814d67c47382955, type: 3}
+  - {fileID: 4300000, guid: 78938a632a0f0014fae96b038fa7fe0c, type: 3}
+  - {fileID: 4300000, guid: b2fdf67f495e5c54b89391417ea9bbe0, type: 3}
+  - {fileID: 4300000, guid: ff81e8f9a4692614186f5dd06e76ec25, type: 3}
+  - {fileID: 4300000, guid: 24dcce12969dd374ea616bffb618057f, type: 3}
+  bodySkin:
+  - {fileID: 4300000, guid: a7b1b5be3042b444abb922a86c043856, type: 3}
+  - {fileID: 4300000, guid: e19844fd52d467a4a8c1e8ef65701a66, type: 3}
+  - {fileID: 4300000, guid: 75cead6b284387345bd1d9c259d58cb3, type: 3}
+  - {fileID: 4300000, guid: d6c6ebf1ea4c23e4c834df955173063a, type: 3}
+  - {fileID: 4300000, guid: e706c9cada8e50145aea961cc58de34a, type: 3}
 --- !u!212 &212465501150816208
 SpriteRenderer:
   m_ObjectHideFlags: 1

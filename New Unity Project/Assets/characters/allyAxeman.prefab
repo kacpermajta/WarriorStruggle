@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 23123319012500226}
   m_Layer: 2
   m_Name: head
-  m_TagString: Untagged
+  m_TagString: cosmetics
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 23786127077329748}
   m_Layer: 2
   m_Name: body
-  m_TagString: Untagged
+  m_TagString: cosmetics
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,7 +99,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1591844082671924}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.01999998, y: 1.088, z: 0}
+  m_LocalPosition: {x: 0, y: 1.088, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4631402134653250}
@@ -230,14 +230,19 @@ MonoBehaviour:
   SiegeCounter: 0
   isHostile: 0
   isSiege: 0
+  isClimbing: 0
   displayedMessage: 
+  nameTag: 
   charController: {fileID: 0}
+  orientation: 0
   leap: 0
   stamina: 0
   mana: 0
   slash: 0
   thrust: 0
   offslash: 0
+  jump: 0
+  windup: 0
   mapPlane: 0
   penShift: 0
   location: {x: 0, y: 0, z: 0}

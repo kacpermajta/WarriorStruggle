@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class heroSelection : MonoBehaviour {
 	public GameObject[] character;
+	public GameObject[] missile;
+	public Mesh[] headSkin;
+	public Mesh[] bodySkin;
 
 
 	public void mainMenu () {
@@ -173,8 +176,22 @@ public class heroSelection : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		playerSettings.character = character;
-		
+		for (int i = 0;  i < 24; i++) 
+		{
+			playerSettings.character[i] = character[i];
+		}
+		for (int i = 0;  i < 14; i++) 
+		{
+			playerSettings.missiles[i] = missile[i];
+		}
+		for (int i = 0;  i < playerSettings.headcount; i++) 
+		{
+			playerSettings.headSkins[i] = headSkin[i];
+		}
+		for (int i = 0;  i < playerSettings.bodycount; i++) 
+		{
+			playerSettings.bodySkins[i] = bodySkin[i];
+		}
 	}
 	
 	// Update is called once per frame

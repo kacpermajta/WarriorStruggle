@@ -40,6 +40,12 @@ public class displayOnCond : MonoBehaviour {
 			}
 
 
+		} 
+		else 
+		{
+			tmpCol = gameObject.GetComponent< Image > ().color;
+			tmpCol.a = 0.0f;
+			gameObject.GetComponent< Image > ().color = tmpCol;
 		}
 	}
 

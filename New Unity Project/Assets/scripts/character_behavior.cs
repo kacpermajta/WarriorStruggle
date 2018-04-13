@@ -8,7 +8,7 @@ public class character_behavior : MonoBehaviour {
 	public enum interaction {none, passage, sigil, body, door};
 	public interaction aviableInteraction;
 
-	public bool isPlayer,  isGood, isInvader, isGuardian;
+	public bool isPlayer,  isGood, isInvader, isGuardian, isFixedCosmetics;
 	public float exhaust,offexhaust, speed, damage, secDamage;
 	public equipment weapon;
 
@@ -95,22 +95,36 @@ public class character_behavior : MonoBehaviour {
 		{
 			weaponModel.GetComponent< meleeStrike > ().damage += damage;
 		}
-		if(isPlayer==false)
+		Debug.Log (playerSettings.headNum + playerSettings.headSkins [playerSettings.headNum].name);
+		gameObject.transform.Find ("head").tag = "cosmetics";
+		gameObject.transform.Find ("body").tag = "cosmetics";
+		if (!isFixedCosmetics) 
 		{
-			
-			if (weapon == equipment.sword && playerSettings.difficulty < 5) 
+			gameObject.transform.Find ("head").transform.localScale = new Vector3 (-1f, 1f, 1f);
+			gameObject.transform.Find ("body").transform.localScale = new Vector3 (-1f, 1f, 1f);
+		}
+		if (isPlayer == false) 
+		{
+			if (!playerSettings.isClient && !playerSettings.isServer)
 			{
+				gameObject.transform.Find ("head").GetComponent<MeshFilter> ().mesh = playerSettings.headSkins [3];
+				gameObject.transform.Find ("body").GetComponent<MeshFilter> ().mesh = playerSettings.bodySkins [3];
+			}
+			if (weapon == equipment.sword && playerSettings.difficulty < 5) {
 				speed += (playerSettings.difficulty - 5) * 0.002f;
-			} else 
-			{
+			} else {
 				speed += (playerSettings.difficulty - 5) * 0.001f;
 			}
-			if (weaponModel.GetComponent< meleeStrike > () != null) 
-			{
-			weaponModel.GetComponent< meleeStrike > ().damage*=playerSettings.difficulty/5f;
+			if (weaponModel.GetComponent< meleeStrike > () != null) {
+				weaponModel.GetComponent< meleeStrike > ().damage *= playerSettings.difficulty / 5f;
 			}
-			damage*=playerSettings.difficulty/5f;
-			health+= 3*(playerSettings.difficulty - 5);
+			damage *= playerSettings.difficulty / 5f;
+			health += 3 * (playerSettings.difficulty - 5);
+		} else if (!playerSettings.isClient && !playerSettings.isServer&&!isFixedCosmetics) 
+		{
+			gameObject.transform.Find ("head").GetComponent<MeshFilter> ().mesh = playerSettings.headSkins [playerSettings.headNum];
+			gameObject.transform.Find ("body").GetComponent<MeshFilter> ().mesh = playerSettings.bodySkins [playerSettings.bodyNum];
+
 		}
 	}
 
@@ -280,7 +294,7 @@ public class character_behavior : MonoBehaviour {
 			leftGuard = guard;
 			leftGuard.y -= 0.3f;
 			if (mana > 0) {
-				if (charSkill) {
+				if (charSkill&&!playerSettings.isClient) {
 
 					GameObject missile = GameObject.Instantiate (arrow, guard - new Vector3 (0f, 0.7f, 0f), Quaternion.identity);
 
@@ -298,7 +312,7 @@ public class character_behavior : MonoBehaviour {
 
 					}
 					missile.GetComponent< shot > ().damage += secDamage;
-					missile.GetComponent< shot > ().velocity += 0.2f;
+					//missile.GetComponent< shot > ().velocity += 0.2f;
 					missile.GetComponent< shot > ().airborne = true;
 
 					mana -= 200f;
@@ -339,7 +353,7 @@ public class character_behavior : MonoBehaviour {
 			leftGuard = guard;
 			leftGuard.y -= 0.3f;
 			if (mana > -200) {
-				if (charSkill) {
+				if (charSkill&&!playerSettings.isClient) {
 					GameObject missile = GameObject.Instantiate (arrow, guard - new Vector3 (0f, 0.7f, 0f), Quaternion.identity);
 
 					if (aim.x - guard.x < 0) {
@@ -354,7 +368,7 @@ public class character_behavior : MonoBehaviour {
 
 					}
 					missile.GetComponent< shot > ().damage += secDamage;
-					missile.GetComponent< shot > ().velocity += 0.2f;
+					//missile.GetComponent< shot > ().velocity += 0.2f;
 					missile.GetComponent< shot > ().airborne = true;
 
 					mana -= 100f;
@@ -370,7 +384,7 @@ public class character_behavior : MonoBehaviour {
 		if (shieldModel != null && offEquipment==equipment.conjure ) {
 			
 			if (mana > 0) {
-				if (charSkill) {
+				if (charSkill&&!playerSettings.isClient) {
 					GameObject missile;
 					if (shieldModel.GetComponent<shot> () == null) {
 
@@ -472,7 +486,7 @@ public class character_behavior : MonoBehaviour {
 			leftGuard = guard;
 			leftGuard.y -= 0.3f;
 			if (stamina > -200) {
-				if (charStrike) {
+				if (charStrike&&!playerSettings.isClient) {
 					GameObject missile = GameObject.Instantiate (arrow, guard - new Vector3 (0f, 0.7f, 0f), Quaternion.identity);
 
 					if (aim.x - guard.x < 0) {
@@ -487,7 +501,7 @@ public class character_behavior : MonoBehaviour {
 
 					}
 					missile.GetComponent< shot > ().damage += secDamage;
-					missile.GetComponent< shot > ().velocity += 0.2f;
+//					missile.GetComponent< shot > ().velocity += 0.2f;
 					missile.GetComponent< shot > ().airborne = true;
 
 					stamina -= 100f;
@@ -503,7 +517,7 @@ public class character_behavior : MonoBehaviour {
 		if (arrow != null && weapon==equipment.conjure ) {
 
 			if (stamina > 0) {
-				if (charStrike) {
+				if (charStrike&&!playerSettings.isClient) {
 					GameObject missile;
 
 
@@ -693,7 +707,7 @@ public class character_behavior : MonoBehaviour {
 				orientation = -0.5f;
 			
 			}
-			if (charStrike){
+			if (charStrike&&!playerSettings.isClient){
 				if (stamina > 0) 
 				{
 
@@ -712,7 +726,7 @@ public class character_behavior : MonoBehaviour {
 
 					}
 					missile.GetComponent< shot > ().damage+=damage;
-					missile.GetComponent< shot > ().velocity+=0.1f;
+//					missile.GetComponent< shot > ().velocity+=0.1f;
 					missile.GetComponent< shot > ().airborne = true;
 
 					stamina -= exhaust;
@@ -733,7 +747,7 @@ public class character_behavior : MonoBehaviour {
 			aimError.x += 0.1f*(Random.value-0.5f-aimError.x);
 			weaponModel.transform.position = guard;
 
-			if (charStrike){
+			if (charStrike&&!playerSettings.isClient){
 				if (stamina > 0 ) 
 				{
 
@@ -752,7 +766,7 @@ public class character_behavior : MonoBehaviour {
 
 					}
 					missile.GetComponent< shot > ().damage+=damage;
-					missile.GetComponent< shot > ().velocity+=0.3f;
+//					missile.GetComponent< shot > ().velocity+=0.3f;
 					missile.GetComponent< shot > ().airborne = true;
 
 					stamina -= exhaust;
@@ -888,7 +902,7 @@ public class character_behavior : MonoBehaviour {
 			displayedMessage = "Hold F to activate sigil";
 		
 		else if (playerSettings.isClient || playerSettings.isServer)
-			displayedMessage = nameTag;
+			displayedMessage = nameTag+": "+(int)health+" hp";
 
 		else
 			displayedMessage = "";
@@ -906,35 +920,29 @@ public class character_behavior : MonoBehaviour {
 
 
 //function when character is hit
-	public void hit(float damage, Vector3 odrzut)
+
+	public void clientKill()
 	{
-		if (playerSettings.isClient)
-			return;
-		health -= damage;
-		if (health < 0f) 
+		
 		{
-			if (isPlayer) 
-			{
-				controller.alive = false;
-			//	controller.ShowDelayed ();
-			}
+			
 			textContent.text = "";
 			//Destroy(charCanvas);
 
 			Destroy(gameObject.GetComponent< character_behavior > ());
 			Destroy(gameObject.GetComponent< CharacterController > ());
+			Destroy(gameObject.GetComponent< CapsuleCollider > ());
 			gameObject.GetComponent< Rigidbody > ().useGravity = true;
 			gameObject.GetComponent< Rigidbody > ().isKinematic = false;
-			gameObject.GetComponent< Rigidbody > ().AddTorque (odrzut/2);
-			SphereCollider ballCollider = gameObject.AddComponent<SphereCollider>();
-			ballCollider.radius = 0.25f;
-			gameObject.transform.parent = gameObject.transform.parent.transform.parent;
+			gameObject.GetComponent< Rigidbody > ().AddTorque (new Vector3 (0f, 0f, 0.5f));
+
+			//gameObject.transform.parent = gameObject.transform.parent.transform.parent;
 
 
 			if (weaponModel.GetComponent< Rigidbody > () == null) 
 			{
 				//Rigidbody newRigidbody = 
-					weaponModel.AddComponent<Rigidbody> ();
+				weaponModel.AddComponent<Rigidbody> ();
 			}
 			Destroy(weaponModel.GetComponent< meleeStrike > ());
 
@@ -945,10 +953,75 @@ public class character_behavior : MonoBehaviour {
 			if (offhandModel != null && offhandModel.GetComponent< Rigidbody > () == null )
 			{
 				//Rigidbody offRigidbody = 
-					offhandModel.AddComponent<Rigidbody>();			
+				offhandModel.AddComponent<Rigidbody>();			
+			}
+			if (offhandModel != null && offhandModel.GetComponent< BoxCollider >()!=null) 
+			{
+				Destroy (offhandModel.GetComponent< BoxCollider > ());
+				offhandModel.GetComponent< Rigidbody > ().useGravity = true;
+				offhandModel.GetComponent< Rigidbody > ().isKinematic = false;
+			}
+
+		}
+	}
+
+
+	public void hit(float damage, Vector3 odrzut)
+	{
+		if (playerSettings.isClient)
+			return;
+		health -= damage;
+		if (health < 0f) {
+			if (isPlayer && !playerSettings.isServer) {
+				controller.alive = false;
+				//	controller.ShowDelayed ();
+			}
+			textContent.text = "";
+			//Destroy(charCanvas);
+
+			Destroy (gameObject.GetComponent< character_behavior > ());
+			Destroy (gameObject.GetComponent< CharacterController > ());
+			gameObject.GetComponent< Rigidbody > ().useGravity = true;
+			gameObject.GetComponent< Rigidbody > ().isKinematic = false;
+			gameObject.GetComponent< Rigidbody > ().AddTorque (odrzut / 2);
+
+			if (playerSettings.isServer)
+				Destroy (gameObject.GetComponent< CapsuleCollider > ());
+			else {
+				SphereCollider ballCollider = gameObject.AddComponent<SphereCollider> ();
+
+
+				ballCollider.radius = 0.25f;
+			}
+
+			if (!playerSettings.isServer)
+				gameObject.transform.parent = gameObject.transform.parent.transform.parent;
+
+
+			if (weaponModel.GetComponent< Rigidbody > () == null) {
+				//Rigidbody newRigidbody = 
+				weaponModel.AddComponent<Rigidbody> ();
+			}
+			Destroy (weaponModel.GetComponent< meleeStrike > ());
+
+			if (offhandModel != null && offhandModel.GetComponent< meleeStrike > () != null) {
+				Destroy (offhandModel.GetComponent< meleeStrike > ());
+			}
+			if (offhandModel != null && offhandModel.GetComponent< Rigidbody > () == null) {
+				//Rigidbody offRigidbody = 
+				offhandModel.AddComponent<Rigidbody> ();			
+			}
+			if (offhandModel != null && offhandModel.GetComponent< BoxCollider > () != null) {
+				Destroy (offhandModel.GetComponent< BoxCollider > ());
+				offhandModel.GetComponent< Rigidbody > ().useGravity = true;
+				offhandModel.GetComponent< Rigidbody > ().isKinematic = false;
 			}
 		
+		} else if (playerSettings.isServer) 
+		{
+			serverScript.sendHp (health, gameObject);
 		}
+
 	}
 	bool shootsOutside()
 	{
@@ -965,4 +1038,5 @@ public class character_behavior : MonoBehaviour {
 		charSkill = false;
 		charInteract = false;
 	}
+
 }
