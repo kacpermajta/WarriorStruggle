@@ -8,6 +8,8 @@ public class shot : MonoBehaviour {
 	public float velocity;
 	Quaternion target;
 	public float damage;
+	public AudioClip bodyHit, Weaponhit, mapHit;
+
 	// Use this for initialization
 	void Start () {
 		if (playerSettings.isServer && airborne) 
@@ -39,19 +41,22 @@ public class shot : MonoBehaviour {
 	//flying missile hit
 	{
 		
-		if(airborne)
+		if(airborne && other.tag != "nonexist"&& other.tag != "cosmetics")//real hit
 		{
-			if (other.GetComponent< character_behavior > () != null) 
+			GameObject Hitsound = Instantiate (playerSettings.staticSingleSound, gameObject.transform.position, Quaternion.identity);
+			if (other.GetComponent< character_behavior > () != null)//person hit 
 			{
-				if (other is CapsuleCollider) {
+				if (other is CapsuleCollider) {//on the head
 					other.GetComponent< character_behavior > ().hit (1.5f * damage, transform.eulerAngles);
 
 
-				} else {
+				} else {//bodyhit
 					other.GetComponent< character_behavior > ().hit (damage, transform.eulerAngles);
 				}
+				Hitsound.GetComponent<AudioSource> ().clip = bodyHit;
+
 			}
-			if (other.GetComponent< enviromentDamage > () != null) {
+			if (other.GetComponent< enviromentDamage > () != null) {//destructible object hit
 				other.GetComponent< enviromentDamage > ().hit (damage, transform.eulerAngles);
 
 			}
@@ -68,15 +73,42 @@ public class shot : MonoBehaviour {
 				{
 					//Rigidbody newRigidbody = 
 						gameObject.AddComponent<Rigidbody> ();
+					Hitsound.GetComponent<AudioSource> ().clip = Weaponhit;
 				} else 
 				{
+					if(	Hitsound.GetComponent<AudioSource> ().clip == null)
+						Hitsound.GetComponent<AudioSource> ().clip = mapHit;
+					
+						
 					gameObject.transform.parent = other.transform;
 				}
 				airborne = false;
 			} else if (other.tag != "weapon")
 			{
-				Destroy (gameObject);
+				if(	Hitsound.GetComponent<AudioSource> ().clip == null)
+					Hitsound.GetComponent<AudioSource> ().clip = mapHit;
+				Destroy (gameObject,0.01f);
+
+				/*
+				Destroy(gameObject.GetComponent<Collider>());
+				Destroy(gameObject.GetComponent<Rigidbody>());
+
+				foreach(Transform child in transform)
+				{
+					Destroy (child.gameObject);
+				}
+
+
+				try {Destroy(gameObject.GetComponent<MeshFilter>());}
+				finally{
+				};
+				airborne = false;
+			*/
+
 			}
+			Hitsound.GetComponent<AudioSource> ().Play();
+			Destroy (Hitsound, 5f);
+		//	gameObject.GetComponent<AudioSource> ().Play();
 		}
 	}
 }

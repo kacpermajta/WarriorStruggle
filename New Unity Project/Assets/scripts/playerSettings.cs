@@ -5,11 +5,17 @@ using UnityEngine.SceneManagement;
 
 
 public class playerSettings : MonoBehaviour {
-	public static int headcount=10;
-	public static int bodycount=5;
+	public static int headcount=15;
+	public static int bodycount=8;
 		
 	public static GameObject playerHero;
-	public  GameObject defaultHero;
+	public GameObject defaultHero;
+	public static GameObject[] staticBackscreen;
+	public GameObject[] backscreen;
+
+	public static GameObject staticSingleSound;
+	public GameObject singleSound;
+
 	public static GameObject[] missiles=new GameObject[14];
 	public static Mesh[] headSkins=new Mesh[headcount];
 	public static Mesh[] bodySkins=new Mesh[bodycount];
@@ -35,10 +41,13 @@ public class playerSettings : MonoBehaviour {
 		playerHero = defaultHero;
 		difficulty = 5;
 		playerName = "";
-		SceneManager.LoadScene("menu");
 		heroNum = 1;
 		headNum = 4;
 		bodyNum = 3;
+		staticBackscreen = backscreen;
+		staticSingleSound = singleSound;
+
+		SceneManager.LoadScene("menu");
 
 	}
 	

@@ -28,11 +28,12 @@ public class botControl : MonoBehaviour {
 				child.GetComponent< character_behavior > ().charInteract = false;
 				child.GetComponent< character_behavior > ().charLeft = false;
 				child.GetComponent< character_behavior > ().charRight = false;
+				child.GetComponent< character_behavior > ().agitated = false;
 				mainHero = null;
 //				temporary = null;
 				botLocation = child.GetComponent< character_behavior > ().location;
 
-				if (child.GetComponent< character_behavior > ().isSiege) {
+				if (child.GetComponent< character_behavior > ().isSiege && !child.GetComponent< character_behavior > ().isGuardian) {
 					temporary = child.GetComponent< character_behavior > ().siegeTarget;
 					range = child.GetComponent< character_behavior > ().siegeDistance;
 					mainHero = child;
@@ -68,52 +69,34 @@ public class botControl : MonoBehaviour {
 								mainHero = agent;
 								temporary = mainHero.GetComponent< character_behavior > ().location;
 
+								child.GetComponent< character_behavior > ().agitated = true;
 
 							}
 						}
 					}
 				}
 				//if no victim selected
-				if (mainHero == null) {
-					child.GetComponent< character_behavior > ().charStrike = false;
 
 					//checked is controlled agent should invade 
-					if (child.GetComponent< character_behavior > ().isInvader) {
-						foreach (Transform agent in pathFinder) {
-							temporary = agent.GetComponent< Transform > ().localPosition;
-							if (child.GetComponent< character_behavior > ().mapPlane == temporary.z) {
-								if (agent.GetComponent< passageHandler > ().entrance) {
-									if (child.GetComponent< character_behavior > ().location.x  > temporary.x+0.6f) {
-										child.GetComponent< character_behavior > ().charLeft = true;
-										child.GetComponent< character_behavior > ().charRight = false;
-									} else if (child.GetComponent< character_behavior > ().location.x  < temporary.x-0.6f) {
-										child.GetComponent< character_behavior > ().charRight = true;
-										child.GetComponent< character_behavior > ().charLeft = false;
-									} else {
-										child.GetComponent< character_behavior > ().charInteract = true;
-										child.GetComponent< character_behavior > ().charRight = false;
-										child.GetComponent< character_behavior > ().charLeft = false;
-									}
 
-							
-								} 
-							}
-						}
-					}
-				} else 
+				 if (mainHero == null) 
+				{
+					child.GetComponent< character_behavior > ().charStrike = false;
+				}
+				else
+
 				{
 					
 					//temporary = mainHero.GetComponent< character_behavior > ().location;
-
 					//check if range troop should account for distance
 					if (child.GetComponent< character_behavior > ().weapon == character_behavior.equipment.bow) 
 					{
 						temporary.y += Mathf.Exp (Mathf.Abs (temporary.x - botLocation.x) * 0.12f) * 0.32f;
-						temporary += 3 * child.GetComponent< character_behavior > ().aimError;
 					}
 
+                    temporary += 3 * child.GetComponent<character_behavior>().aimError;
 
-					child.GetComponent< character_behavior > ().aim = temporary;
+                    child.GetComponent< character_behavior > ().aim = temporary;
 
 					//enemy in sight
 
@@ -132,6 +115,7 @@ public class botControl : MonoBehaviour {
 
 					) 
 					{
+							
 						
 						if (child.GetComponent< character_behavior > ().weaponModel != null) 
 						{
@@ -144,7 +128,8 @@ public class botControl : MonoBehaviour {
 
 						if (Vector3.Distance (child.GetComponent< character_behavior > ().aim, child.GetComponent< character_behavior > ().guard) > range+0.1f) 
 						{	//victim too far to strike
-							
+
+
 							child.GetComponent< character_behavior > ().charStrike = false;
 
 						} else 
@@ -170,8 +155,10 @@ public class botControl : MonoBehaviour {
 					temporaryBool = (child.GetComponent< character_behavior > ().aim.x - botLocation.x > 0f);
 					//check if we are on victim
 					if (Mathf.Abs (child.GetComponent< character_behavior > ().aim.x - botLocation.x) < 0.7f) {
-						temporaryBool = !temporaryBool;
+						
 					}
+
+
 					//victim too close
 					if (Vector3.Distance (child.GetComponent< character_behavior > ().aim, child.GetComponent< character_behavior > ().guard) > range)
 					{
@@ -183,6 +170,8 @@ public class botControl : MonoBehaviour {
 					} else 
 						//victim too far
 					{			
+						
+
 						if (!child.GetComponent< character_behavior > ().isGuardian) 
 						{
 							child.GetComponent< character_behavior > ().charRight = !temporaryBool;
@@ -192,6 +181,33 @@ public class botControl : MonoBehaviour {
 					} 
 
 				}//end of victim script
+
+
+				if (child.GetComponent< character_behavior > ().isInvader &&
+					(mainHero == null || child.GetComponent< character_behavior > ().fleeing)) {
+					child.GetComponent< character_behavior > ().agitated = false;
+					foreach (Transform agent in pathFinder) {
+						temporary = agent.GetComponent< Transform > ().localPosition;
+						if (child.GetComponent< character_behavior > ().mapPlane == temporary.z) {
+							if (agent.GetComponent< passageHandler > ().entrance) {
+								if (child.GetComponent< character_behavior > ().location.x  > temporary.x+0.6f) {
+									child.GetComponent< character_behavior > ().charLeft = true;
+									child.GetComponent< character_behavior > ().charRight = false;
+								} else if (child.GetComponent< character_behavior > ().location.x  < temporary.x-0.6f) {
+									child.GetComponent< character_behavior > ().charRight = true;
+									child.GetComponent< character_behavior > ().charLeft = false;
+								} else {
+									child.GetComponent< character_behavior > ().charInteract = true;
+									child.GetComponent< character_behavior > ().charRight = false;
+									child.GetComponent< character_behavior > ().charLeft = false;
+								}
+
+
+							} 
+						}
+					}
+				}
+
 				child.GetComponent< character_behavior > ().charUp = false;
 
 				if ((child.GetComponent< character_behavior > ().charRight || child.GetComponent< character_behavior > ().charLeft))

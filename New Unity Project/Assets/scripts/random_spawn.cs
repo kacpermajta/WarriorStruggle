@@ -5,10 +5,11 @@ using UnityEngine;
 public class random_spawn : MonoBehaviour {
 	public int[] counter;
 	public int cooldown;
-	public float xmin, xmax, ymin, ymax;
+	public float xmin, xmax, ymin, ymax,z;
 	public GameObject[] entity;
 	public GameObject newCharacter;
 	Vector3 location;
+	public bool growing;
 	// Use this for initialization
 	void Start () 
 	{
@@ -27,17 +28,18 @@ public class random_spawn : MonoBehaviour {
 	void Update () {
 
 //loop through spawned prefabs
-		for(int i=0; i<counter.Length;i++){
+		for(int i=0; i<entity.Length;i++){
 		counter[i]--;
 
 //time to spawn a bot
 		if (counter[i] < 0) 
 			{
-				location=new Vector3(xmin + (Random.value * (xmax-xmin)), ymin + (Random.value * (ymax-ymin)), 0f);
+				location=new Vector3(xmin + (Random.value * (xmax-xmin)), ymin + (Random.value * (ymax-ymin)), z);
 				newCharacter= Instantiate(entity[i], location, Quaternion.identity);
 				newCharacter.transform.parent = gameObject.transform.parent.transform.parent.transform.GetChild (0);
 				newCharacter.GetComponent< character_behavior > ().mapPlane = location.z;
-
+				if (growing)
+					cooldown--;
 //set new spawn time
 				counter[i] = cooldown+(int)(Random.value * (2*cooldown));
 			}

@@ -7,6 +7,7 @@ public class enviromentDamage : MonoBehaviour {
 
 	public float damage;
 	public float health;
+	public AudioClip knock, crash;
 	// Use this for initialization
 	void Start () {
 		
@@ -30,6 +31,12 @@ public class enviromentDamage : MonoBehaviour {
 	public void hit(float damage, Vector3 odrzut)
 	{
 		health -= damage;
+		if (damage > 4)
+			AudioSource.PlayClipAtPoint (crash, gameObject.transform.position);
+		else
+			AudioSource.PlayClipAtPoint (knock, gameObject.transform.position);
+
+
 		if (health < 0f) {
 
 			Destroy (gameObject.transform.parent.gameObject);

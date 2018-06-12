@@ -21,6 +21,11 @@ public class buttonControl : MonoBehaviour {
 //		if(GameObject.Find("IPBOX")!=null)
 //
 //			GameObject.Find("IPBOX").GetComponentInChildren<Text>().text = Network.player.externalIP;
+
+		controller.moveUp = false;
+		controller.moveRight = false;
+		controller.moveLeft = false;
+		controller.Skill = false;
 	}
 
 
@@ -31,6 +36,10 @@ public class buttonControl : MonoBehaviour {
 	}
 	public void StartGame () {
 		SceneManager.LoadScene("levels");
+
+	}
+	public void Invasion () {
+		SceneManager.LoadScene("invasion");
 
 	}
 	public void mainMenu () {

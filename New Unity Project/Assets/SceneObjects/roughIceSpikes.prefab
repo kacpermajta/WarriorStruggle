@@ -115,9 +115,11 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: a30afca307daefc4aac4fd975f041145, type: 2}
   m_StaticBatchInfo:
@@ -130,12 +132,14 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &33008735705792568
 MeshFilter:
@@ -168,9 +172,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Convex: 1
-  m_InflateMesh: 0
+  m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 35d3a3ac6bab7f54aa40d6eb5f9be2ff, type: 3}
 --- !u!65 &65378650897559556
@@ -236,3 +240,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   health: 3
+  knock: {fileID: 8300000, guid: 65a8e1f13143c47ab9b96881eac40dff, type: 3}
+  crash: {fileID: 8300000, guid: fc582df3572b64d279888946675505af, type: 3}

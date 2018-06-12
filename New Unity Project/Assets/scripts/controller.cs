@@ -13,6 +13,7 @@ public class controller : MonoBehaviour {
 	public static bool Strike;
 	public static bool Skill;
 	public static bool Interact;
+	public static bool Build;
 	public static bool alive, changeMessage;
 	public static int message;
 
@@ -28,6 +29,7 @@ public class controller : MonoBehaviour {
 	void Start () {
 		alive = true;
 		message = 0;
+		gameObject.AddComponent<BackEntitiesManager> ();
 	}
 	
 	// Update is called once per frame
@@ -105,7 +107,12 @@ public class controller : MonoBehaviour {
 			Interact=true;
 		else
 			Interact=false;
-		
+
+		if (Input.GetKey(KeyCode.B))
+			Build=true;
+		else
+			Build=false;
+
 
 
 

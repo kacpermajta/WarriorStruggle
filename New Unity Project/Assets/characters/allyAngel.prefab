@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 143242094080148072}
   - component: {fileID: 54505621698013406}
   - component: {fileID: 136695794151590740}
+  - component: {fileID: 82580711923666596}
   m_Layer: 2
   m_Name: allyAngel
   m_TagString: characters
@@ -114,9 +115,11 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 80a23cc9b483ff14cbda4ae255fd9b3a, type: 2}
   m_StaticBatchInfo:
@@ -129,12 +132,14 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23972943583650360
 MeshRenderer:
@@ -145,9 +150,11 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 80a23cc9b483ff14cbda4ae255fd9b3a, type: 2}
   m_StaticBatchInfo:
@@ -160,12 +167,14 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &33933145115821154
 MeshFilter:
@@ -196,6 +205,101 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 56
   m_CollisionDetection: 0
+--- !u!82 &82580711923666596
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1788064477569182}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: c1eac1c698fc84605adb7e1074fd7d34, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 0
+  MinDistance: 1
+  MaxDistance: 200
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &114507734830939014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -208,10 +312,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aviableInteraction: 0
+  mainAttSnd: {fileID: 8300000, guid: 52fa067c25c5c401b811eb86d142287e, type: 3}
+  offAttSnd: {fileID: 0}
   isPlayer: 0
   isGood: 1
   isInvader: 0
   isGuardian: 0
+  isFixedCosmetics: 0
   exhaust: 21
   offexhaust: 51
   speed: 0
@@ -220,10 +327,13 @@ MonoBehaviour:
   weapon: 4
   offEquipment: 11
   arrow: {fileID: 0}
+  postMortem: {fileID: 1638283516960442, guid: 3c368053044a11c40af39e66a2c77c0d, type: 2}
+  buildingMaterials: {fileID: 0}
   bowModel: {fileID: 1703388319312976, guid: 50f2a1aa85fdf794e9aa29a0e4769eae, type: 2}
   shieldModel: {fileID: 1018776573749112, guid: 1a829d08a79c9544c8d2a4f8a8ee4679,
     type: 2}
   health: 15
+  maxhealth: 0
   charCanvas: {fileID: 0}
   textDisplayerPrefab: {fileID: 223280951033680522, guid: e83542a251990e04eb54757569cced5d,
     type: 2}
@@ -232,6 +342,7 @@ MonoBehaviour:
   isHostile: 0
   isSiege: 0
   isClimbing: 0
+  isWorking: 0
   displayedMessage: 
   nameTag: 
   charController: {fileID: 0}
@@ -259,9 +370,13 @@ MonoBehaviour:
   charStrike: 0
   charSkill: 0
   charInteract: 0
+  charBuild: 0
   aimError: {x: 0, y: 0, z: 0}
   siegeTarget: {x: 0, y: 0, z: 0}
   siegeDistance: 0
+  despair: 0
+  fleeing: 0
+  agitated: 0
 --- !u!136 &136695794151590740
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -285,10 +400,10 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.34
+  m_Height: 1.47
   m_Radius: 0.3
   m_SlopeLimit: 47
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.03, z: 0}
+  m_Center: {x: 0, y: 0.14, z: 0}
